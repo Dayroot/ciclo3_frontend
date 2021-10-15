@@ -1,30 +1,46 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+
+    <div id="app" class="container">
+        <Header />
+        <p>App</p>
+        <router-view/>
+    </div>
+
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+    import { defineAsyncComponent } from 'vue'
+    export default {
+        name: 'App',
+        data: function(){
+        },
+        components: {
+            Header: defineAsyncComponent(() => import( /* webpackChunkName: "Header" */ './bookstore_ecommerce/shared/components/Header.vue'))
+        },
+        methods:{
+        }
     }
-  }
-}
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;800&display=swap');
+
+    * {
+        color: #2E2B2C;
+        font-size: 16px;
+        font-family: 'Mulish', sans-serif;
+    }
+    body {
+        background: #EFECEA;
+        margin:0 auto;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        width: 70vw;
+        max-width: 1200px;
+        margin : 0 auto;
+    }
+
+  
 </style>
