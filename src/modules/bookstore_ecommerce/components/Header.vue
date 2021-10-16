@@ -5,13 +5,13 @@
         <div class="social-media-bar">
             <span class="social-media-bar__label">Follow us</span>
             <div class="social-media-bar__icons">
-                <a href="https://www.facebook.com/" class="icon-social-media">
+                <a href="https://www.facebook.com/" target="_blank" class="icon-social-media">
                     <img src="../../../assets/icons/facebook.svg" alt="" class="icon-social-media__img--fb">
                 </a>
-                <a href="https://www.instagram.com/" class="icon-social-media">
+                <a href="https://www.instagram.com/" target="_blank" class="icon-social-media">
                     <img src="../../../assets/icons/instagram.svg" alt="" class="icon-social-media__img">
                 </a>
-                <a href="https://twitter.com/" class="icon-social-media">
+                <a href="https://twitter.com/" target="_blank" class="icon-social-media">
                     <img src="../../../assets/icons/twitter.svg" alt="" class="icon-social-media__img ">
                 </a>
             </div>
@@ -19,15 +19,15 @@
 
         <div class="header">
 
-            <router-link to="/home" class="header__logo">
+            <router-link :to="{name:'home'}" class="header__logo">
                 <img src="../../../assets/logoBookstore.svg" type="img/svg" alt="Logo Bookstore">
             </router-link>
 
             <div class="menu">
-                <router-link to="/products/books" class="menu__option">BOOKS</router-link>
-                <router-link to="/products/magazines" class="menu__option">MAGAZINES</router-link>
-                <router-link to="/offers" class="menu__option">OFFERS</router-link>
-                <router-link to="/stores" class="menu__option">PHYSICAL STORES</router-link> 
+                <router-link :to="{name:'books'}" class="menu__option">BOOKS</router-link>
+                <router-link :to="{name:'magazines'}" class="menu__option">MAGAZINES</router-link>
+                <router-link :to="{name:'offers'}" class="menu__option">OFFERS</router-link>
+                <router-link :to="{name:'product-book', params:{ id:6, title:'evan'} }" class="menu__option">PHYSICAL STORES</router-link> 
             </div>
 
             <div class="icons-container">
@@ -47,18 +47,7 @@
  
 <style lang="scss" scoped>
     
-
-    $dark-grey:#2E2B2C;
-    $ivory-white: #EFECEA;
-    $orange-gradient: radial-gradient(50% 50% at 50% 50%, #FFBF42 19.06%, #A76D1C 100%);
-    $orange-linear-gradient: linear-gradient(180deg, #FFBF42 62.99%, #A76D1C 166.67%);
-    $orange-solid: #FFBF42;
-    $light-grey:#9D9D9D;
-    $dark-orange-radial-gradient: radial-gradient(50% 50% at 50% 50%, #FF7042 19.06%, #A7351C 100%);
-    $dark-orange-linear-gradient: linear-gradient(179.09deg, #FF7042 52.58%, #A7351C 100.85%);
-    $light-yellow: #F3DDB2;
-    $orange-hover-menu: linear-gradient(90deg, #FFBF42 0%, rgba(255, 191, 66, 0) 100%);
-
+    @import "@/assets/ColorPalette.scss";
 
     * {
         display: inherit
@@ -102,12 +91,12 @@
         }
         &::before{
             width: 0;
-            background-color: $orange-solid;
+            background-color: $yellow-solid;
         }
 
         &::after{
             width: 100%;
-            border: 1px solid $orange-solid;
+            border: 1px solid $yellow-solid;
             border-top: 0;
             opacity: 0;
         }
@@ -140,6 +129,9 @@
         }
     }
 
+    .router-link-exact-active.menu__option {
+        color: $yellow-solid;
+    }
 
 
     .header__logo {
@@ -153,7 +145,7 @@
     }
     .social-media-bar__label {
         align-items: center;
-        color: #9d9d9d;
+        color: $light-grey;
         font-family: 'Mulish', sans-serif;
         font-size: 0.8rem;
         
