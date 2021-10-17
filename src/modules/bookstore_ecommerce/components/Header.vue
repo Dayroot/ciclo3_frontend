@@ -3,18 +3,28 @@
     <div class="header-container"> 
 
         <div class="social-media-bar">
-            <span class="social-media-bar__label">Follow us</span>
-            <div class="social-media-bar__icons">
-                <a href="https://www.facebook.com/" target="_blank" class="icon-social-media">
-                    <img src="../../../assets/icons/facebook.svg" alt="" class="icon-social-media__img--fb">
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="icon-social-media">
-                    <img src="../../../assets/icons/instagram.svg" alt="" class="icon-social-media__img">
-                </a>
-                <a href="https://twitter.com/" target="_blank" class="icon-social-media">
-                    <img src="../../../assets/icons/twitter.svg" alt="" class="icon-social-media__img ">
-                </a>
-            </div>
+            <span class="social-media-bar__label">Follow us</span>         
+            <nav>
+                <ul class="social-media-bar__icons">
+                    <li class="icon-social-media">
+                        <a href="https://www.facebook.com/" target="_blank">
+                            <img src="../../../assets/icons/facebook.svg" alt="facebook icon" class="icon-social-media__img--fb">
+                        </a>
+                    </li>
+                    
+                    <li class="icon-social-media">
+                        <a href="https://www.instagram.com/" target="_blank">
+                            <img src="../../../assets/icons/instagram.svg" alt="instagram icon" class="icon-social-media__img">
+                        </a>
+                    </li>
+                    
+                    <li class="icon-social-media">
+                        <a href="https://twitter.com/" target="_blank">
+                            <img src="../../../assets/icons/twitter.svg" alt="twitter icon" class="icon-social-media__img ">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
         <div class="header">
@@ -23,19 +33,29 @@
                 <img src="../../../assets/logoBookstore.svg" type="img/svg" alt="Logo Bookstore">
             </router-link>
 
-            <div class="menu">
-                <router-link :to="{name:'books'}" class="menu__option">BOOKS</router-link>
-                <router-link :to="{name:'magazines'}" class="menu__option">MAGAZINES</router-link>
-                <router-link :to="{name:'offers'}" class="menu__option">OFFERS</router-link>
-                <router-link :to="{name:'product-book', params:{ id:6, title:'evan'} }" class="menu__option">PHYSICAL STORES</router-link> 
-            </div>
+            <nav>
+                <ul class="menu">
+                    <li class="menu__option">
+                        <router-link :to="{name:'books'}" >BOOKS</router-link>
+                    </li>
+                    <li class="menu__option">
+                        <router-link :to="{name:'magazines'}">MAGAZINES</router-link>
+                    </li>
+                    <li class="menu__option">
+                        <router-link :to="{name:'offers'}">OFFERS</router-link>
+                    </li>
+                    <li class="menu__option">
+                        <router-link :to="{name:'product-book', params:{ id:6, title:'evan'} }">PHYSICAL STORES</router-link>
+                    </li>
+                </ul>      
+            </nav>
 
             <div class="icons-container">
                 <router-link to="/home" class="icon">
-                    <img src="../../../assets/icons/shoppingCart.svg" type="img/svg" alt="Logo Bookstore" />
+                    <img src="../../../assets/icons/shoppingCart.svg" type="img/svg" alt="shopping cart icon" />
                 </router-link>
                 <router-link to="/home" class="icon">
-                    <img src="../../../assets/icons/user.svg" type="img/svg" alt="Logo Bookstore" />
+                    <img src="../../../assets/icons/user.svg" type="img/svg" alt="user icon" />
                 </router-link>
             </div>
 
@@ -49,37 +69,97 @@
     
     @import "@/assets/ColorPalette.scss";
 
-    * {
-        display: inherit
+    ul {
+        list-style-type: none;
+        background: lightgreen;
+            
     }
+    a{
+        text-decoration: none;
+    }
+
+    /* Social media bar styles */
+
     .social-media-bar{
-        /* background: #e2b043; */
+        background: #e2b043;
         height: 55px;
         display: flex;
-        justify-content: left;
+        align-items: center;    
     }
-    .header {
-        /* background: #b4ccf8; */
-        height: 90px;
-        display: flex;
-        
+    .social-media-bar__label {
+        color: $light-grey;
+        font-family: 'Mulish', sans-serif;
+        font-size: 0.8rem;
+        margin-right: 0.3em;
+        background: royalblue;     
     }
-    .menu {
-        /* background: cadetblue; */
-        margin: 0;
+    .icon-social-media {
+        display: inline-flex;
+        margin: 0 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
         align-items: center;
         justify-content: center;
-        flex:50px
+        background-color: $light-grey;
+        transition: all 200ms ease-in-out;
+    }
+    .icon-social-media__img {
+        width: 12px;       
+    }
+    .icon-social-media__img--fb{
+        width: 7px;
+    }   
+    .icon-social-media:hover {
+        transform: scale(1.15);
+        background-color: $yellow-solid;
+    }
+
+    /* logo */
+
+    .header__logo {
+        background: lightcoral; 
+        width: 90px;
+    }
+
+    /* shopping cart and user icon styles */
+
+    .icons-container {
+        background: chocolate;
+        display: inline-flex;
+        flex: 100;
+        height: 30px;
+        justify-content: right;
+        align-items: center;
+    }
+
+    .icon {
+        margin: 0 20px;
+    }
+
+    /*menu styles */
+
+
+    .header {
+        background: #b4ccf8;
+        height: 90px;
+        display: flex;
+        align-items: center; 
+    }
+    .menu {
+        background: cadetblue;
+        display: flex;
+        height: 30px;
+        align-items: center;
+
     }
     .menu__option {
-        position: relative;
-        display: block;
         font-size: 0.8rem;
-        text-decoration: none;
-        text-align: center;
+        display: inline-flex;
         cursor: pointer;
         margin: 0 20px;
         transition: all 450ms ease;
+
         &::after,
         &::before{
             content: '';
@@ -132,52 +212,5 @@
     .router-link-exact-active.menu__option {
         color: $yellow-solid;
     }
-
-
-    .header__logo {
-        /* background: lightcoral; */
-        width: 90px;
-    }
-
-    .icon {
-        width: 20px;
-        margin: 0 20px;
-    }
-    .social-media-bar__label {
-        align-items: center;
-        color: $light-grey;
-        font-family: 'Mulish', sans-serif;
-        font-size: 0.8rem;
-        
-    }
-    .icon-social-media {
-        width: 20px;
-        align-items: center;
-        justify-content: center;
-        margin: 0 5px;
-        background-image: url("../../../assets/icons/circle.svg");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        transition: transform 0.2s;
-    }
-    .icon-social-media__img {
-        width: 12px;
-    }
-    .icon-social-media__img--fb{
-        width: 7px;
-    }
-    
-    /* Hover effects */
-    .icon-social-media:hover {
-        transform: scale(1.15);
-        align-items: center;
-        justify-content: center;
-        margin: 0 5px;
-        background-image: url("../../../assets/icons/circle-hover.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
     
 </style>

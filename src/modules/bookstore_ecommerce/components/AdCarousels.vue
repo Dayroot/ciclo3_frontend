@@ -1,6 +1,11 @@
 <template>
     <p>hola8</p>
-    <Carousel :slides="slides" />
+    <carousel 
+        :slides="slides" 
+        :interval="3000"
+        controls
+        indicators
+    ></carousel>
 </template>
 
 <script>
