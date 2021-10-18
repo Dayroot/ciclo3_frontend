@@ -1,7 +1,6 @@
 <template>
     <div class="staff-layout">
         <div class="sidebar">
-            <p>sidebar</p>
             <sidebar></sidebar>
             
         </div>
