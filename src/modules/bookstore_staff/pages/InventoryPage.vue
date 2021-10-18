@@ -1,7 +1,7 @@
 <template>
     <div class="inventory-page">
-        <h1>Inventory page</h1>
-        <table></table>
+        <!-- <h1>Inventory page</h1> -->
+        <books-table></books-table>  
     </div >
 </template>
 
@@ -12,11 +12,24 @@
         data: function(){
         },
         components: {
-
-            Table: defineAsyncComponent(() => import( /* webpackChunkName: "table" */ '../components/Table')),
+            BooksTable: defineAsyncComponent(() => import( /* webpackChunkName: "booksTable" */ '../components/BooksTable')),
         },
-        methods:{
-        }
+        methods: {
+            async getBooks() {
+                const books= await axios.get("https://bookstore-macad-backend.herokuapp.com/book/")
+                    .catch((error) => {
+                        if (error.response.status == "401")
+                        alert("ERROR 401: books not found.");
+                    });    
+            },
+            async getMagazines() {
+                const magazines= await axios.get("https://bookstore-macad-backend.herokuapp.com/magazine/")
+                    .catch((error) => {
+                        if (error.response.status == "401")
+                        alert("ERROR 401: magazines not found.");
+                    });         
+            }
+        },  
     }
 </script>
 

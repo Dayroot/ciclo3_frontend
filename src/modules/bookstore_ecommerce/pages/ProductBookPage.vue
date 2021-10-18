@@ -37,15 +37,13 @@
             // this.getBook();
         },
         methods: {
-            async getBook() {
-        
+            async getBooks() {
                 const books= await axios.get("https://bookstore-macad-backend.herokuapp.com/book/")
                     .catch((error) => {
                         if (error.response.status == "401")
-                        alert("ERROR 401: book not found.");
-                    });
-                this.title = books.data[0].title
-            }
+                        alert("ERROR 401: books not found.");
+                    });    
+            },
         },  
     }
 </script>

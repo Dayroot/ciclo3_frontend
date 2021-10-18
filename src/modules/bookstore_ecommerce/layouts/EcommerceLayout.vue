@@ -23,5 +23,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .ecommerce-layout {
+        width: 70vw;
+        max-width: 1200px;
+        margin : 0 auto;
+    }
 </style>

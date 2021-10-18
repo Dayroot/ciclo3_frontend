@@ -45,11 +45,11 @@
         padding: 0;
         box-sizing: border-box;
     }
-    .container {
+    /* .container {
         width: 70vw;
         max-width: 1200px;
         margin : 0 auto;
-    }
+    } */
 
   
 </style>
