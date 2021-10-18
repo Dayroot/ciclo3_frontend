@@ -47,7 +47,7 @@ const routes = [
     },
     {
         path: '/user',
-        name: 'login',
+        name: 'user',
         component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/layouts/LoginLayout'),
         children: [
             {
@@ -61,8 +61,29 @@ const routes = [
                 component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/pages/StaffLoginPage')
             },
             {
+                path: 'signup',
+                name: 'customer-signup',
+                component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/pages/SignUpPage')
+            },
+            {
                 path: '',
                 redirect: { name: 'customer-login' }
+            }
+        ]
+    },
+    {
+        path: '/staff',
+        name: 'staff',
+        component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/layouts/LoginLayout'),
+        children: [
+            {
+                path: 'inventory',
+                name: 'inventory',
+                component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/bookstore_management/pages/InventoryPage')
+            },
+            {
+                path: '',
+                redirect: { name: 'inventory' }
             }
         ]
     }
