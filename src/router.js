@@ -74,12 +74,12 @@ const routes = [
     {
         path: '/staff',
         name: 'staff',
-        component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/layouts/LoginLayout'),
+        component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/bookstore_staff/layouts/StaffLayout'),
         children: [
             {
                 path: 'inventory',
                 name: 'inventory',
-                component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/bookstore_management/pages/InventoryPage')
+                component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/bookstore_staff/pages/InventoryPage')
             },
             {
                 path: '',

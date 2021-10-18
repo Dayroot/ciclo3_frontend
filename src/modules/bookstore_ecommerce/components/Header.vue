@@ -42,7 +42,7 @@
                         <router-link :to="{name:'magazines'}" class="menu__option">MAGAZINES</router-link>
                     </li>
                     <li>
-                        <router-link :to="{name:'offers'}" class="menu__option">OFFERS</router-link>
+                        <router-link :to="{name:'inventory'}" class="menu__option">STAFF</router-link>
                     </li>
                     <li>
                         <router-link :to="{name:'product-book', params:{ id:6, title:'evan'} }" class="menu__option">PHYSICAL STORES</router-link>
