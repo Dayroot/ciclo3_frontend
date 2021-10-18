@@ -35,28 +35,39 @@
 
             <nav>
                 <ul class="menu">
-                    <li class="menu__option">
-                        <router-link :to="{name:'books'}" >BOOKS</router-link>
+                    <li>
+                        <router-link :to="{name:'books'}" class="menu__option">BOOKS</router-link>
                     </li>
-                    <li class="menu__option">
-                        <router-link :to="{name:'magazines'}">MAGAZINES</router-link>
+                    <li>
+                        <router-link :to="{name:'magazines'}" class="menu__option">MAGAZINES</router-link>
                     </li>
-                    <li class="menu__option">
-                        <router-link :to="{name:'offers'}">OFFERS</router-link>
+                    <li>
+                        <router-link :to="{name:'offers'}" class="menu__option">OFFERS</router-link>
                     </li>
-                    <li class="menu__option">
-                        <router-link :to="{name:'product-book', params:{ id:6, title:'evan'} }">PHYSICAL STORES</router-link>
+                    <li>
+                        <router-link :to="{name:'product-book', params:{ id:6, title:'evan'} }" class="menu__option">PHYSICAL STORES</router-link>
                     </li>
                 </ul>      
             </nav>
 
             <div class="icons-container">
-                <router-link to="/home" class="icon">
-                    <img src="../../../assets/icons/shoppingCart.svg" type="img/svg" alt="shopping cart icon" />
-                </router-link>
-                <router-link to="/home" class="icon">
-                    <img src="../../../assets/icons/user.svg" type="img/svg" alt="user icon" />
-                </router-link>
+                <button class="icon icon--user">
+                    <img src="../../../assets/icons/shoppingCart.svg" 
+                        type="img/svg" 
+                        alt="shopping cart icon" 
+                        class="icon__img"     
+                    />  
+                </button>
+                <button @click="toggleModalUser" class="icon icon--cart">
+                    <img src="../../../assets/icons/user.svg" 
+                        type="img/svg" 
+                        alt="user icon"
+                        class="icon__img" 
+                    />
+                </button>
+                <user-window
+                    :isActivate="userWindowActivate"
+                ></user-window>
             </div>
 
         </div>
@@ -65,14 +76,40 @@
     
 </template>
  
+ <script>
+ import UserWindow from "./UserWindow";
+ import { ref } from "vue";
+
+ export default {
+    props: {
+    },
+    data: () => ({
+        
+    }),
+    components: {
+        UserWindow,
+    },
+    methods: {
+    
+    },
+    setup() {
+        const userWindowActivate = ref(false);
+        const toggleModalUser = () => {
+        userWindowActivate.value = !userWindowActivate.value;
+        };
+        return { userWindowActivate, toggleModalUser };
+    }
+ }
+ </script>
+
+
 <style lang="scss" scoped>
     
     @import "@/assets/ColorPalette.scss";
 
     ul {
-        list-style-type: none;
-        background: lightgreen;
-            
+        // background: lightgreen;
+        list-style-type: none;    
     }
     a{
         text-decoration: none;
@@ -81,17 +118,17 @@
     /* Social media bar styles */
 
     .social-media-bar{
-        background: #e2b043;
+        // background: #e2b043;
         height: 55px;
         display: flex;
         align-items: center;    
     }
     .social-media-bar__label {
-        color: $light-grey;
+        // background: royalblue;
+        color: $grey;
         font-family: 'Mulish', sans-serif;
         font-size: 0.8rem;
-        margin-right: 0.3em;
-        background: royalblue;     
+        margin-right: 0.3em;     
     }
     .icon-social-media {
         display: inline-flex;
@@ -118,44 +155,73 @@
     /* logo */
 
     .header__logo {
-        background: lightcoral; 
-        width: 90px;
+        // background: lightcoral; 
+        width: 8vw;
     }
 
     /* shopping cart and user icon styles */
 
     .icons-container {
-        background: chocolate;
-        display: inline-flex;
-        flex: 100;
-        height: 30px;
+        // background: chocolate;
+        display: flex;
         justify-content: right;
         align-items: center;
+        background-color: $light-grey;
+        border-radius: 0.1em;
     }
 
     .icon {
-        margin: 0 20px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba($color: #000000, $alpha: 0);
+        width: 50px;
+        height: 40px;
+        cursor: pointer;
+        transition: all 120ms ease-in-out;   
+
     }
+    .icon__img {
+        width: 24px;
+        height: 20px;
+    }
+
+    .icon:hover {
+        background-color: $yellow-solid;
+        border-radius: 0.1em;
+    }
+    .icon:active {
+        background-color: $yellow-solid-active;
+        border-radius: 0.1em;
+    }
+
 
     /*menu styles */
 
 
     .header {
-        background: #b4ccf8;
+        // background: #b4ccf8;
         height: 90px;
         display: flex;
         align-items: center; 
     }
     .menu {
-        background: cadetblue;
+        // background: cadetblue;
         display: flex;
+        width: 50vw;
         height: 30px;
         align-items: center;
+        justify-content: center;
+        margin: 0 20px;
 
     }
     .menu__option {
+        position: relative;
+        display: block;
         font-size: 0.8rem;
-        display: inline-flex;
+        text-decoration: none;
+        text-align: center;
         cursor: pointer;
         margin: 0 20px;
         transition: all 450ms ease;

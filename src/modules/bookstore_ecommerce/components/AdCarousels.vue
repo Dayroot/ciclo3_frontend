@@ -1,9 +1,7 @@
 <template>
-    <p>hola8</p>
     <carousel 
         :slides="slides" 
-        :interval="3000"
-        controls
+        :interval="4000"
         indicators
     ></carousel>
 </template>
@@ -15,11 +13,10 @@
         components: { Carousel },
         data: () => ({
             slides: [
-                "https://picsum.photos/id/1032/900/400",
-                "https://picsum.photos/id/1033/900/400",
-                "https://picsum.photos/id/1034/900/400",
-                "https://picsum.photos/id/1035/900/400",
-                "https://picsum.photos/id/1036/900/400"
+                "https://i.imgur.com/7bKYlfS.png",
+                "https://i.imgur.com/mbDRw2m.png",
+                "https://i.imgur.com/YKXb0lC.png",
+                "https://i.imgur.com/MgNdAaI.png"   
             ],
         }),
     }

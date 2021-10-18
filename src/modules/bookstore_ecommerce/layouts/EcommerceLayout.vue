@@ -1,8 +1,10 @@
 <template>
     <div class="ecommerce-layout">
-        <Header />
+        <Header/>
         <h1>Ecommerce Layout</h1>
         <router-view />
+        <Footer/>
+        
     </div >
 </template>
 
@@ -13,7 +15,8 @@
         data: function(){
         },
         components: {
-            Header: defineAsyncComponent(() => import( /* webpackChunkName: "Header" */ '../components/Header'))
+            Header: defineAsyncComponent(() => import( /* webpackChunkName: "Header" */ '../components/Header')),
+            Footer: defineAsyncComponent(() => import( /* webpackChunkName: "Header" */ '../components/Footer'))
         },
         methods:{
         }
