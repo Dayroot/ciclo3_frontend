@@ -1,16 +1,19 @@
 <template>
     <div class="customer-login">
         <h1>Customer Login</h1>
+        <customer-login></customer-login>
     </div >
 </template>
 
 <script>
+    import { defineAsyncComponent } from 'vue'
     export default {
         name: 'customer-login-page',
         data: function(){
         },
         components: {
-           
+           CustomerLogin: defineAsyncComponent(() => import( /* webpackChunkName: "customerLoginPage" */ '../components/CustomerLogin')),
+           StaffLogin: defineAsyncComponent(() => import( /* webpackChunkName: "customerLoginPage" */ '../components/StaffLogin'))
         },
         methods:{
         }

@@ -63,7 +63,7 @@ const routes = [
             {
                 path: 'signup',
                 name: 'customer-signup',
-                component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/pages/SignUpPage')
+                component:  () => import(/* webpackChunkName: "BooksPage" */'./modules/login/pages/CustomerSignUpPage')
             },
             {
                 path: '',
