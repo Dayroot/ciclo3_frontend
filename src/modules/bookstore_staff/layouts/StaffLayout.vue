@@ -2,11 +2,13 @@
     <div class="staff-layout">
         <div class="sidebar">
             <p>sidebar</p>
+            <sidebar></sidebar>
+            
         </div>
         <div class="dashboard">
             <p>dashboard</p>
+            <router-view />
         </div>
-        <router-view />
     </div >
 </template>
 
@@ -14,13 +16,9 @@
     import { defineAsyncComponent } from 'vue'
     export default {
         name: 'staff-layout',
-        data: function(){
-        },
         components: {
-
+            Sidebar: defineAsyncComponent(() => import( /* webpackChunkName: "sidebar" */ '../components/Sidebar'))
         },
-        methods:{
-        }
     }
 </script>
 

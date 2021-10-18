@@ -1,10 +1,12 @@
 <template>
-    <a class="carousel-control left" @click="$emit('prev')">
-        <img src="../../../../assets/icons/left-arrow.svg" alt="">
-    </a>
-    <a class="carousel-control right" @click="$emit('next')">
-        <img src="../../../../assets/icons/right-arrow.svg" alt="">
-    </a>
+    <div>
+        <a class="carousel-control left" @click="$emit('prev')">
+            <img src="../../../../assets/icons/left-arrow.svg" alt="">
+        </a>
+        <a class="carousel-control right" @click="$emit('next')">
+            <img src="../../../../assets/icons/right-arrow.svg" alt="">
+        </a>
+    </div>
 </template>
 
 <script>
