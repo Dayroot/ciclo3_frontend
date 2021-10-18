@@ -1,7 +1,6 @@
 <template>
     <div class="ecommerce-layout">
         <Header/>
-        <h1>Ecommerce Layout</h1>
         <router-view />
         <Footer/>
         

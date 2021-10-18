@@ -1,6 +1,5 @@
 <template>
     <div>
-        <p>Homepage</p>
         <AdCarousels />
     </div>
 </template>

@@ -20,8 +20,11 @@
 </script>
 
 <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;800&display=swap');
+    /* @import '~@fortawesome/fontawesome-free/css/all.css';
+    @import '~@fortawesome/fontawesome-free/css/brands.css';
+    @import '~@fortawesome/fontawesome-free/css/solid.css';
+    @import '~@fortawesome/fontawesome-free/css/regular.css'; */
     
     * {
         box-sizing: border-box;
