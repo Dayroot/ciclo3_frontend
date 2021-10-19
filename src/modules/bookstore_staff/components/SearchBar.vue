@@ -6,7 +6,7 @@
             </svg>
             <span>Filter</span>
         </router-link>
-        <input type="text" placeholder="Insert a text" />
+        <input type="text" placeholder="carry out your search" />
     </div>
 </template>
 <style lang="scss" scoped>
@@ -40,7 +40,11 @@
         outline: none;
     }
     input::placeholder {
-        color: blue;
+        text-indent: 30px;
+        color: $grey;
+        background-image: url('../../../assets/icons/search.svg');
+        background-repeat: no-repeat;
+        background-position: left center;
         
     }
     
