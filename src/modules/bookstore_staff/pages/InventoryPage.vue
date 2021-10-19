@@ -1,53 +1,52 @@
 <template>
     <div class="inventory-page">
         <p>este es el inventario</p>
-        <books-table :booksData="booksData"></books-table>  
+        <custom-table :rowsData="rowsData" :fields="fields"></custom-table>  
     </div >
 </template>
 
 <script>
-    // import { defineAsyncComponent } from 'vue'
     import axios from 'axios';
-    import BooksTable from "../components/BooksTable.vue";
+    import CustomTable from "../components/CustomTable.vue";
 
     export default {
         name: 'inventory-page',
+        props: {
+            api: {
+                type: String,
+                required: true,
+                default: "https://bookstore-macad-backend.herokuapp.com/book/"
+            },
+            fields:{
+                type: Array,
+                required: true,
+                default: ["product.id","title","author","publication_date","editorial", "isbn", "product.price", "product.stock"]
+            }
+        },
         data: function(){
             return {
-                booksData: null,
-                magazinesData: null,
+                rowsData: null,
             }
         },
         components: {
-            BooksTable,
+            CustomTable,
         },
         methods: {
-            async getBooks() {
+            async getData() {
                 try {
-                    axios.get("https://bookstore-macad-backend.herokuapp.com/book/")
+                    axios.get(this.api)
                     .then((result) => {
-                            this.booksData= result.data;
-                        })
+                        this.rowsData= result.data;
+                    })
                 }catch(error) {
                     if (error.response.status == "401")
                     alert("ERROR 401: books not found.");
                 };
                         
             },
-            async getMagazines() {
-                try {
-                    axios.get("https://bookstore-macad-backend.herokuapp.com/magazine/")
-                    .then((result) => {
-                            this.magazinesData= result.data;
-                        })
-                }catch(error) {
-                    if (error.response.status == "401")
-                    alert("ERROR 401: magazines not found.");
-                };       
-            }
         },
         mounted:function(){
-            this.getBooks();
+            this.getData();
         },
     }
 </script>
