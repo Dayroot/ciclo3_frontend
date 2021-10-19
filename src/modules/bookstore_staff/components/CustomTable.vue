@@ -1,22 +1,27 @@
 <template>
-    <div>  
-        <table>
-            <thead>
-                <tr>
-                    <th v-for="(column, index) in columns" :key="index" scope="col">{{column}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(row) in rows" :key="row.id">      
-                    <td v-for="(valueField, index) in Object.values(row)" :key="index">{{ valueField }}</td>    
-                </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="header">
+            <search-bar></search-bar>
+        </div>
+        <div class="data-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th v-for="(column, index) in columns" :key="index" scope="col">{{column}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(row) in rows" :key="row.id">      
+                        <td v-for="(valueField, index) in Object.values(row)" :key="index">{{ valueField }}</td>    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 <script>
-
+import SearchBar from "./SearchBar.vue";
 export default {
     props: ["rowsData", "fields"],
     data() {
@@ -26,7 +31,7 @@ export default {
         }
     },
     components: {
-        
+        SearchBar,
     },
     methods: {
     },
@@ -55,8 +60,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import "@/assets/ColorPalette.scss";
+
+    .header {
+        height: 16% ;
+        background: $light-yellow;
+        border-radius: 20px 20px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     th {
         text-transform: capitalize;
     }
+    .data-container {
+        display:flex;
+        overflow: auto;
+
+    }
+    table {
+        table-layout: fixed;
+        border-collapse: collapse;
+        
+    }
+    td, th {
+        border: 1px solid grey;
+        letter-spacing: 1px;
+        padding: 10px;
+    }
+    thead {
+        background: $yellow-solid;
+    }
+    td {
+        text-align: center;
+    }
+    
+    .container {
+        width: 939px;
+        height: 80%;
+        border-radius: 20px;
+        background: $white;
+        margin: 0 auto;
+    }
+    
 
 </style>

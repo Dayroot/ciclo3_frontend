@@ -146,7 +146,7 @@ export default {
 </script>
 <style lang="css" scoped>
 
-	
+
 	#btn-menu{
         visibility: visible;
         display: none;
@@ -172,6 +172,7 @@ export default {
         text-align: center;
         color: #EFECEA;
         text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+        z-index: 1;
     }
 	.Menu{
 		position: absolute;
