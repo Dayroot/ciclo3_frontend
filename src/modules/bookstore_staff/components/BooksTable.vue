@@ -15,7 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(row) in booksData" :key="row.product.id">
+                <tr v-for="(dataRow) in booksData" :key="dataRow.product.id">
+                    <input type="checkbox" name="" id="">
                     <th scope="row">{{ dataRow.product.id  }}</th>
                     <td>{{ dataRow.title }}</td>
                     <td>{{ dataRow.author }}</td>
@@ -31,18 +32,13 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+// import { defineAsyncComponent } from 'vue'
 export default {
     props: ["booksData"],
     components: {
-            RowTable: defineAsyncComponent(() => import( /* webpackChunkName: "rowTable" */ '../components/RowTable')),
+        
     },
     methods: {
     },
-    watch: {
-        RowTable: {
-
-        }
-    }
 }
 </script>

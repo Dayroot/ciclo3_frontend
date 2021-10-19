@@ -6,22 +6,20 @@
 </template>
 
 <script>
-    import { defineAsyncComponent } from 'vue'
+    // import { defineAsyncComponent } from 'vue'
     import axios from 'axios';
+    import BooksTable from "../components/BooksTable.vue";
 
     export default {
         name: 'inventory-page',
         data: function(){
             return {
-                booksData: [0],
-                magazinesData: [0],
+                booksData: null,
+                magazinesData: null,
             }
         },
         components: {
-            BooksTable: defineAsyncComponent(() => import( /* webpackChunkName: "booksTable" */ '../components/BooksTable')),
-        },
-        created() {
-            this.getBooks();
+            BooksTable,
         },
         methods: {
             async getBooks() {
@@ -47,6 +45,9 @@
                     alert("ERROR 401: magazines not found.");
                 };       
             }
+        },
+        mounted:function(){
+            this.getBooks();
         },
     }
 </script>
