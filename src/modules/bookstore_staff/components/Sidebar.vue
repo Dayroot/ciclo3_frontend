@@ -1,46 +1,46 @@
 <template>
+    <div>
+        <input type="checkbox" id="btn-menu">
+        <div class="btn-menu">
+            <div class="titulo"><h1>BOOKSTORE</h1></div>
+            <label for="btn-menu"><img src="../../../assets/icons/Imagen1.png" width= 270px;
+                    height= 120.93px;></label>
+        </div>
 
-<input type="checkbox" id="btn-menu">
-<div class="btn-menu">
-    <div class="titulo"><h1>BOOKSTORE</h1></div>
-    <label for="btn-menu"><img src="Imagen1.png" width= 270px;
-            height= 120.93px;></label>
-</div>
-
-<div class="Menu">
-	<div class="menu__user-information">
-        <div class="menu__photo">
-        </div>
-        <div class="menu__name">
-            <h>PepitoPérez</h>
-        </div>
-        <div class="menu__role">
-            <h> Admin</h>     
-        </div>
-    </div>
-    <div class="menu__options">
-        <nav>
-            <router-link to="inventory"> <img src="Imagen3.png" position= absolute; width= 24px; height= 24px; left= 10px; top= 2px;>  Inventary</router-link>
-        </nav>    
-        <nav>
-            <router-link to="sales"><img src="Imagen4.png" position= absolute; width= 24px; height= 24px; left= 10px; top= 2px;>  Sales</router-link>
-        </nav>
-    </div>
-		
-    <div class="logout">
-        <div class="option__contentL">
-            <div class="Log--out">
-                <img src="Imagen6.png" position= absolute; width= 24px; height= 24px; left= 10px; top= 2px;>
-                <h>  Log out</h>
+        <div class="Menu">
+            <div class="menu__user-information">
+                <div class="menu__photo">
+                </div>
+                <div class="menu__name">
+                    <h>PepitoPérez</h>
+                </div>
+                <div class="menu__role">
+                    <h> Admin</h>     
+                </div>
             </div>
+            <div class="menu__options">
+                <nav>
+                    <router-link to="inventory"> <img src="../../../assets/icons/Imagen3.png" position= absolute; width= 24px; height= 24px; left= 10px; top= 2px;>  Inventary</router-link>
+                </nav>    
+                <nav>
+                    <router-link to="sales"><img src="Imagen4.png" position= absolute; width= 24px; height= 24px; left= 10px; top= 2px;>  Sales</router-link>
+                </nav>
+            </div>
+                
+            <div class="logout">
+                <div class="option__contentL">
+                    <div class="Log--out">
+                        <img src="../../../assets/icons/Imagen6.png" position= absolute; width= 24px; height= 24px; left= 10px; top= 2px;>
+                        <h>  Log out</h>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-menu">
+                <div class="titulo"><h1>BOOKSTORE</h1></div>
+                <label for="btn-menu"><img src="Imagen1.png" width= 270px;
+                        height= 120.93px;></label></div>
         </div>
-	</div>
-    <div class="btn-menu">
-        <div class="titulo"><h1>BOOKSTORE</h1></div>
-        <label for="btn-menu"><img src="Imagen1.png" width= 270px;
-                height= 120.93px;></label></div>
-</div>
-
+    </div>
 </template>
 
 <script>
@@ -48,11 +48,10 @@ export default {
 
 }
 </script>
-<style lang="" scoped>
+<style lang="css" scoped>
 
-	/*Menù lateral*/
-	#btn-menu{
-                /* Vector 1 */
+	
+	.btn-menu{
         visibility: visible;
         display: none;
         position: absolute;
@@ -75,9 +74,7 @@ export default {
         font-size: 16px;
         line-height: 40px;
         text-align: center;
-
         color: #EFECEA;
-
         text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
     }
 	.Menu{
