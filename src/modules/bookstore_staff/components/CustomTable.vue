@@ -76,24 +76,19 @@ export default {
             this.filter();       
         },
         filter: function() {
-            console.log("filtrandooo");
-            if(this.search.length > 0){
+            if (this.search == null || this.search.length == 0){
+                this.filteredRows = this.rows
+            } else {
                 this.filteredRows = this.rows.filter(
                     row => {
-                        let value = row[this.filterField];
-                        if( isNaN( value ) ){
-                            return !value.search(this.search)
-                        }else {
-                            return value == this.search
-                        }
+                        let value = String( row[this.filterField] );
+                        return !value.search( new RegExp(this.search, 'i') )
                     });
-            }else{
-                this.filteredRows = this.rows;
             }
         },
     },
     watch: {
-        rowsData: function(){         
+        rowsData: function(){      
             let obj_element_fields = {};
             this.rowsData.forEach(element => {
                 obj_element_fields = {};
@@ -110,7 +105,8 @@ export default {
                     }
                 });
                 this.rows.push(obj_element_fields);
-            });                   
+            });
+            this.filter();                  
         },
     }
 }
