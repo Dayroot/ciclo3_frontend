@@ -12,7 +12,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
+                            <th class="space-fill"></th>
                             <th v-for="(column, index) in columns" :key="index" scope="col">{{column}}</th>
                         </tr>
                     </thead>
@@ -124,6 +124,18 @@ export default {
         justify-content: center;
     }
 
+    thead th {
+        width: 25em;
+        // background-color: blue;
+    }
+    thead th:nth-child(1) {
+        width: 50px;
+        // background-color: blue;
+    }
+    .space-fill {
+        background: chartreuse;
+    }
+
     th {
         text-transform: capitalize;
     }
@@ -226,5 +238,6 @@ export default {
             fill: $white;
         }
     }
+    
 
 </style>
