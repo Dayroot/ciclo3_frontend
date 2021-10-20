@@ -1,3 +1,5 @@
+<!--
+
 <template>
     <div>
         <input type="checkbox" id="btn-menu">
@@ -357,9 +359,6 @@ export default {
         border-left: 5px solid #FFFFFF;
 		background: linear-gradient(90deg, #FFBF42 0%, rgba(255, 191, 66, 0) 100%);
     }
-    .btn-menu--top {
-        position: absolute;
-        z-index: 3;
-        
-    }
 </style>
+
+-->
