@@ -1,7 +1,11 @@
 <template>
     <div class="inventory-page">
         <p>este es el inventario</p>
-        <custom-table :rowsData="rowsData" :fields="fields"></custom-table>  
+        <custom-table 
+            :rowsData="rowsData" 
+            :fields="fields"
+            :filterFields="filterFields"
+        ></custom-table>  
     </div >
 </template>
 
@@ -21,6 +25,11 @@
                 type: Array,
                 required: true,
                 default: ["product.id","title","author","publication_date","editorial", "isbn", "product.price", "product.stock"]
+            },
+            filterFields:{
+                type: Array,
+                required: true,
+                default: ["id","title","author","editorial", "isbn"]
             }
         },
         data: function(){

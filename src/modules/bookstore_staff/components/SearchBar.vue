@@ -1,6 +1,10 @@
 <template>
     <div class="search-bar">
-        <router-link to="" class="button-filter">
+        <filter-window
+            :isActivate="filterWindowActivate"
+            :filterFields="filterFields"
+        ></filter-window>
+        <router-link to="" class="button-filter" @click="toggleModalFilter">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.5865 20H12.6316V9.9095L20 1.57617V0H0V1.56717L7.01754 9.9005V16.6095L10.5865 20ZM11.2281 18.6667H11.1679L8.42105 16.0572V9.43283L1.60044 1.33333H18.3816L11.2281 9.42383V18.6667Z" fill="#2E2B2C"/>
             </svg>
@@ -9,6 +13,23 @@
         <input type="text" placeholder="carry out your search" />
     </div>
 </template>
+<script>
+import { ref } from "vue";
+import FilterWindow from "./FilterWindow";
+export default {
+    props: ["filterFields"],
+    components: {
+        FilterWindow,
+    },
+    setup() {
+        const filterWindowActivate = ref(false);
+        const toggleModalFilter = () => {
+        filterWindowActivate.value = !filterWindowActivate.value;
+        };
+        return { filterWindowActivate, toggleModalFilter };
+    }
+}
+</script>
 <style lang="scss" scoped>
     @import "@/assets/ColorPalette.scss";
 
@@ -47,5 +68,12 @@
         background-position: left center;
         
     }
+    .button-filter:hover {
+        background: $yellow-radial-gradient-activate;
+    }
+    // .router-link-exact-active.button-filter {
+    //     background: $yellow-radial-gradient-activate;
+    // }
+    
     
 </style>

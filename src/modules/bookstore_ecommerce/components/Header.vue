@@ -147,7 +147,7 @@
     }   
     .icon-social-media:hover {
         transform: scale(1.15);
-        background-color: $yellow-solid;
+        background: $yellow-radial-gradient-activate;
     }
 
     /* logo */
@@ -192,7 +192,7 @@
         stroke: $dark-grey;
     }
     .icon:hover {
-        background-color: $yellow-solid;
+        background: $yellow-radial-gradient-activate;
         border-radius: 0.1em;
     }
     .icon:active {

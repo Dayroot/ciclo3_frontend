@@ -1,13 +1,10 @@
 <template>
     <transition >
-        <div v-show="isActivate" class="window">
-            <div class="button">
-                <router-link to="/user/login" class="text">Log in</router-link>
+            <div v-show="isActivate" class="window">
+                <div v-for="(option, index) in filterFields" :key="index" class="button">
+                    <router-link to="" class="text">{{option}}</router-link>
+                </div>
             </div>
-            <div class="button">
-                <router-link to="/user/signup" class="text">Sign up</router-link>
-            </div>
-        </div>
     </transition>
 </template>
 <script>
@@ -17,7 +14,10 @@ export default {
             type: Boolean,
             default: true      
         },
-        
+        filterFields: {
+            type: Array,
+            default: ["test1","test2", "test3"]
+        },   
     },
 }
 </script>
@@ -37,15 +37,15 @@ export default {
         flex-direction: column;
         justify-content: center;
         width: 100px;
-        height: 50px;
+        height: auto;
         background-color: $white;
         box-shadow: 0px 1px 2px 1px rgba($color: #000000, $alpha: 0.2);
-        transform: translateY(91%);
+        transform: translateY( 31px);
         position: absolute;
-        z-index: 1;
+        z-index: 2;
     }
     .button {
-        padding: 5px 5px 5px 25px;
+        padding: 5px 5px 5px 10px;
         transition: all 200ms ease-in-out;
     }
     .button:hover {
@@ -57,4 +57,5 @@ export default {
     .button:active {
         background-color: $yellow-solid-active;
     }
+    
 </style>
