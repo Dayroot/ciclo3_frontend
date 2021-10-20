@@ -2,7 +2,10 @@
     <div class="container">
         <div class="container-table">
             <div class="header">
-                <search-bar :filterFields="filterFields" ></search-bar>
+                <search-bar 
+                    :filterFields="filterFields"
+                    @searching="searchAnswer"
+                ></search-bar>
             </div>
             <div class="fields-names-background-bar"></div>
             <div class="data-container">
@@ -14,7 +17,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(row) in rows" :key="row.id">
+                        <tr v-for="(row) in this.filteredRows" :key="row.id">
                             <td><input type="checkbox" name="" id=""></td>
                             <td v-for="(valueField, index) in Object.values(row)" :key="index">{{ valueField }}</td>
                         </tr>
@@ -57,12 +60,37 @@ export default {
         return {
             rows: [],
             columns: [],
+            filteredRows: [],
+            filterField: null,
+            search: null,
         }
     },
     components: {
         SearchBar,
     },
     methods: {
+        searchAnswer: function(selectedFilter,search) {
+            console.log(search);
+            this.filterField= selectedFilter;
+            this.search= search; 
+            this.filter();       
+        },
+        filter: function() {
+            console.log("filtrandooo");
+            if(this.search.length > 0){
+                this.filteredRows = this.rows.filter(
+                    row => {
+                        let value = row[this.filterField];
+                        if( isNaN( value ) ){
+                            return !value.search(this.search)
+                        }else {
+                            return value == this.search
+                        }
+                    });
+            }else{
+                this.filteredRows = this.rows;
+            }
+        },
     },
     watch: {
         rowsData: function(){         

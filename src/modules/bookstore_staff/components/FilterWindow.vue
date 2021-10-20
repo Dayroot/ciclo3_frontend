@@ -1,12 +1,13 @@
 <template>
     <transition >
             <div v-show="isActivate" class="window">
-                <div v-for="(option, index) in filterFields" :key="index" class="button">
-                    <router-link to="" class="text">{{option}}</router-link>
+                <div v-for="(option, index) in filterFields" :key="index" @click="$emit('filterField',option)" class="button">
+                    <button class="text">{{option}}</button>
                 </div>
             </div>
     </transition>
 </template>
+
 <script>
 export default {
     props: {
@@ -16,9 +17,10 @@ export default {
         },
         filterFields: {
             type: Array,
-            default: ["test1","test2", "test3"]
-        },   
+            default: null
+        } 
     },
+    emits: ['filterField'],
 }
 </script>
 
@@ -29,8 +31,9 @@ export default {
         font-size: 0.8rem;
         color: $grey
     }
-    a {
-        text-decoration: none;
+    button {
+        border: none;
+        background: none;
     }
     .window {
         display: flex;
@@ -56,6 +59,7 @@ export default {
     }
     .button:active {
         background-color: $yellow-solid-active;
+        padding: 8px 8px 8px 13px;
     }
-    
+
 </style>

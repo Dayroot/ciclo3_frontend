@@ -56,5 +56,6 @@ export default {
     }
     .button:active {
         background-color: $yellow-solid-active;
+        padding: 8px 8px 8px 28px;
     }
 </style>
