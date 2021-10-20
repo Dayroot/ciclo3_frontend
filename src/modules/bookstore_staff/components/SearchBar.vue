@@ -91,6 +91,9 @@ export default {
     .button-filter:hover {
         background: $yellow-radial-gradient-activate;
     } 
+    .button-filter:active {
+        background: $yellow-radial-gradient;
+    }
     .selected-filter {
         display: flex;
         align-items: center;
