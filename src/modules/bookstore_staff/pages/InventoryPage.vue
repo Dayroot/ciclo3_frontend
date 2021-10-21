@@ -1,6 +1,5 @@
 <template>
     <div class="inventory-page">
-        <p>este es el inventario</p>
         <custom-table 
             :rowsData="rowsData" 
             :fields="fields"

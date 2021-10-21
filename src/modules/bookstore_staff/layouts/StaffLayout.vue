@@ -5,7 +5,6 @@
             
         </div>
         <div class="dashboard">
-            <p>dashboard</p>
             <router-view />
         </div>
     </div >
@@ -22,6 +21,7 @@
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/ColorPalette.scss";
     .staff-layout {
         display: flex;
         height: 100vh;
@@ -32,7 +32,7 @@
         width:270px;
     }
     .dashboard {
-        background: coral;
+        background: $negro-clarito;
         flex:500px;
     }
 
