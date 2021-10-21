@@ -30,12 +30,6 @@
 
                 <input type="text" v-model="user.address" placeholder="Address">
                 <br>
-                
-                <input type="boolean" v-model="user.is_employee" placeholder="Employee">
-                <br>
-
-                <input type="boolean" v-model="user.is_customer" placeholder="Customer">
-                <br>
 
                 <button type="submit">Registrarse</button>
                 
@@ -61,14 +55,14 @@ export default {
                 identification: "", 
                 phone_number: "",
                 address:"",
-                is_employee:"",
-                is_customer: "", 
+                is_customer: true, 
             }
         }
     },
 
     methods: {
         processSignUp: function(){
+            console.log(this.user);
             axios.post(
                 "https://bookstore-macad-backend.herokuapp.com/customer-registration/",
                 this.user, 
@@ -80,7 +74,7 @@ export default {
                         token_access: result.data.access,
                         token_refresh: result.data.refresh,
                     }
-                    this.$emit('completedSignUp', dataSignUp)
+                    this.$emit('completedCustumerSignUp', dataSignUp)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -90,62 +84,3 @@ export default {
     }
 }
 </script>
-
-
-<style lang="scss" scoped>
-    body {
-        font-weight: 900;
-    }
-
-    .main {
-        padding: 0px 10px;
-    }
-
-    @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-    }
-
-    @media screen and (max-width: 450px) {
-        .login-form{
-            margin-top: 30%;
-        }
-
-    }
-
-    @media screen and (min-width: 768px){
-        .main{
-            margin-left: 40%; 
-        }
-
-        .sidenav{
-            width: 40%;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-        }
-
-        .login-form{
-            margin-top: 40%;
-        }
-
-    }
-
-    .login-main-text{
-        margin-top: 20%;
-        padding: 40px;
-        color: #FF7042;
-    }
-
-    .login-main-text h2{
-        font-family: 'Bitter', serif;
-        font-size: 32px;
-        color: #000;
-        font-weight: bold;
-    }
-
-    .btn-black{
-        background-color: #FFBF42  !important;
-        color: #000;
-    }
-</style>
