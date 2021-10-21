@@ -35,7 +35,7 @@
                                 <input type="password" v-model="user.password" placeholder="Password" class="text">
                             </div>
                         </div>
-                        <button type="submit" class="loginb">
+                        <button type="submit" @click="processLogInUser" class="loginb">
                             <span>LogIn</span>
                         </button>
                         
