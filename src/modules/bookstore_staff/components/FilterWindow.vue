@@ -1,7 +1,12 @@
 <template>
     <transition >
             <div v-show="isActivate" class="window">
-                <div v-for="(option, index) in filterFields" :key="index" @click="$emit('filterField',option)" class="button">
+                <div 
+                    v-for="(option, index) in filterFields" 
+                    :key="index" 
+                    @click="$emit('filterField',option)" 
+                    class="button"
+                >
                     <button class="text">{{option}}</button>
                 </div>
             </div>

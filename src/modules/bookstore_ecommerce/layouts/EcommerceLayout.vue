@@ -14,8 +14,8 @@
         data: function(){
         },
         components: {
-            Header: defineAsyncComponent(() => import( /* webpackChunkName: "Header" */ '../components/Header')),
-            Footer: defineAsyncComponent(() => import( /* webpackChunkName: "Header" */ '../components/Footer'))
+            Header: defineAsyncComponent(() => import( /* webpackChunkName: "header" */ '../components/Header')),
+            Footer: defineAsyncComponent(() => import( /* webpackChunkName: "footer" */ '../components/Footer'))
         },
         methods:{
         }

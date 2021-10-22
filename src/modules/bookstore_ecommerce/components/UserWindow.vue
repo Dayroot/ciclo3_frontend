@@ -1,12 +1,8 @@
 <template>
     <transition >
         <div v-show="isActivate" class="window">
-            <div class="button">
-                <router-link to="/user/login" class="text">Log in</router-link>
-            </div>
-            <div class="button">
-                <router-link to="/user/signup" class="text">Sign up</router-link>
-            </div>
+            <router-link to="/user/login" class="button">Log in</router-link>
+            <router-link to="/user/signup" class="button">Sign up</router-link>
         </div>
     </transition>
 </template>
@@ -46,13 +42,11 @@ export default {
     }
     .button {
         padding: 5px 5px 5px 25px;
-        transition: all 200ms ease-in-out;
+        transition: all 100ms ease-in-out;
     }
     .button:hover {
         background: $faded-yellow;
-        .text {
-            color: $dark-grey;
-        }
+        color: $dark-grey;
     }
     .button:active {
         background-color: $yellow-solid-active;

@@ -34,13 +34,13 @@ const routes = [
                 component: () => import(/* webpackChunkName: "OffersPage" */'./modules/bookstore_ecommerce/pages/OffersPage')
             },
             {
-                path: 'product/book/:id',
+                path: 'product/book/',
                 name: 'product-book',
-                component: () => import(/* webpackChunkName: "ProductBookPage" */'./modules/bookstore_ecommerce/pages/ProductBookPage'),
-                props: ( route ) => {
-                    const id  = Number(route.params.id);
-                    return isNaN( id ) ? { id: 1 } : { id }
-                }
+                component: () => import(/* webpackChunkName: "ProductBookPage" */'./modules/bookstore_ecommerce/pages/DetailProductPage'),
+                // props: ( route ) => {
+                //     const id  = Number(route.params.id);
+                //     return isNaN( id ) ? { id: 1 } : { id }
+                // }
             }
             
         ]
