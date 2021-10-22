@@ -1,6 +1,5 @@
 <template>
     <div class="login-layout">
-        <h1>Login Layout</h1>
         <router-view 
         v-on:completedCustomerLogIn="completedCustomerLogIn"
         v-on:completedCustumerSignUp="completedCustumerSignUp"
