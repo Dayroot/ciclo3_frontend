@@ -3,6 +3,7 @@
         <p>{{description}}</p>
     </div>
 </template>
+
 <script>
 export default {
     data() {
@@ -21,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .container {
+    .detail-container {
         height: 400px;
         width: 500px;
         background: cadetblue;

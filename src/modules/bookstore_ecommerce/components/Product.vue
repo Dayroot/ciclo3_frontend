@@ -1,8 +1,8 @@
 <template>
     <div class="product">
         <p>{{title}}</p>
+        <router-link :to="{name: 'product-book'}"></router-link>
     </div>
-    <router-link :to="{name: 'product-book'}"></router-link>
 </template>
 
 <script>
