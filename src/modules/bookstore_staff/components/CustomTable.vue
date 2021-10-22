@@ -2,8 +2,9 @@
     <div class="container">
         <add-window
             :isActivate="addWindowActivate"
-            @cancel="toggleModalAdd"
             :fieldsName="columns"
+            @cancel="toggleModalAdd"
+            @add="setDataAdd"
         ></add-window>
         <div class="table-container">
             <div class="header">
@@ -94,17 +95,20 @@ export default {
                     });
             }
         },
+        setDataAdd: function(){
+            this.toggleModalAdd();
+            
+        }
     },
     setup() {
         const addWindowActivate = ref(false);
         const toggleModalAdd = () => {
-            console.log("add activado");
             addWindowActivate.value = !addWindowActivate.value;
         };
         return { addWindowActivate, toggleModalAdd };
     },
     watch: {
-        rowsData: function(){      
+        rowsData: function(){   
             this.rows=[];
             this.rowsData.forEach(element => {
                 let obj_element_fields = {};

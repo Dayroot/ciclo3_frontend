@@ -1,17 +1,27 @@
 <template>
     <div v-if="isActivate">
-        <form class="form">
+        <div class="form">
             <div class="form__head">
                 <h1>{{title}}</h1>
             </div>
             <div class="fields-container">
-                <div v-for="(fieldName, index) in fieldsName" :key="index" class="form__field">
-                    <input type="text" name="" id="field" placeholder="field"/>
+                <div v-for="(fieldName,index) in fields" :key="index" class="form__field">
+                    <div>
+                        <label>{{fieldName[0]}}</label>
+                    </div>
+                    <input type="text" v-model="addObjectData[fieldName[1]]" placeholder=""/>
                     <span class="outline"></span>
-                    <label>{{fieldName}}</label>
                 </div>
             </div>
-        </form>
+            <div class="button-bar">
+                <button @click="$emit('add', addObjectData)" class="button">
+                    <span>add</span>
+                </button>
+                <button @click="$emit('cancel')" class="button">
+                    <span>cancel</span>
+                </button>
+            </div>
+        </div>
         <div @click="$emit('cancel')" class="back"></div>
     </div>
 </template>
@@ -20,7 +30,7 @@ export default {
     props: {
         isActivate: {
             type: Boolean,
-            default: true     
+            default: false     
         },
         title: {
             type: String,
@@ -28,16 +38,35 @@ export default {
         },
         fieldsName: {
             type: Array,
-            default:["title","author","editorial"]
+            required: true,
+            default: null,
         }
 
     },
     data: function() {
         return {
-            obj: null,
+            addObjectData: {},
         }
     },
     emits: ['add', 'cancel'],
+    methods: {
+        addActivated: function() {
+            console.log(this.addObjectData);
+        }
+    },
+    computed: {
+        fields(){
+            let fields=[];
+            this.fieldsName.forEach( fieldName => {
+                let key= fieldName.replace(" ","_");
+                fields.push([fieldName,key]);
+                this.addObjectData[key] = null;
+            })
+            console.log(this.addObjectData);
+            return fields
+        },
+    },
+   
 }
 </script>
 <style lang="scss">
@@ -54,7 +83,9 @@ export default {
         background: rgba($color: #000000, $alpha: 0.5);
     }
     .form {
-        width: 594px;
+        max-height: 643px;
+        max-width: 800px;
+        width: 100%;
         padding: 20px;
         border-radius: 20px;
         background: lightblue;
@@ -72,6 +103,9 @@ export default {
         background: lightgreen;
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
+        max-height: 483px;
+        max-width: 800px;
         align-items: center;
         justify-content: center;
     }
@@ -88,17 +122,40 @@ export default {
     }
     .form__field {
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 350px;
-        height: 40px;
-        margin: 20px 5px;
+        height: 50px;
+        margin: 5px 5px;
         background: darkgreen;
     }
-    span {
+    label{
         color: $dark-grey;
+        text-transform: capitalize;
     }
     input {
-        width: 150px;
-        height: 25px;  
+        border: none;
+        width: 300px;
+        height: 25px;
+        border-radius: 8px;
+        padding: 0 8px; 
+    }
+    input:focus, textarea:focus {
+        outline: none;
+    }
+    .button-bar {
+        background: darkkhaki;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .button {
+        margin:0 20px;
+        width:115px;
+        height: 30px;
+        border-radius: 6px;
+        border: none;
     }
     
 </style>

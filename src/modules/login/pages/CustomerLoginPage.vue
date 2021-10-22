@@ -100,6 +100,9 @@ export default {
         justify-content: center;
         height: 100vh;
         background-image: url("../../../assets/login/fondo.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #f1eee9;
     }
     .login{
         width: 856px;
@@ -109,7 +112,7 @@ export default {
         border-radius: 20px;
         overflow: hidden;
         background: #141414;
-        box-shadow: 0 0 3px 3px rgba(#000, 0.2);
+        box-shadow: 0 0 2px 2px rgba(#000, 0.1);
         display: flex;
     }
     .Text_left{
