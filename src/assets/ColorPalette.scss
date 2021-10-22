@@ -1,3 +1,5 @@
+
+/* Color Palette */
 $negro-clarito: #3D3D3D;
 $dark-grey:#2E2B2C;
 $medium-grey: #666666;
@@ -14,3 +16,9 @@ $light-yellow: #F3DDB2;
 $faded-yellow: linear-gradient(90deg, #FFBF42 0%, rgba(255, 191, 66, 0.2) 100%);
 $orange-radial-gradient: radial-gradient(50% 50% at 50% 50%, #FF7042 19.06%, #A7351C 100%);
 $orange-linear-gradient: linear-gradient(179.09deg, #FF7042 52.58%, #A7351C 100.85%);
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;800&display=swap');
+$primary-font-family: 'Mulish', sans-serif;
+$second-font-family: 'Playfair Display SC', serif;

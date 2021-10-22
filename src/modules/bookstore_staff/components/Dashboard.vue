@@ -71,7 +71,6 @@
 
 <style lang="scss" scoped>
     @import "@/assets/ColorPalette.scss";
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700;900&display=swap');
     .dashboard {
         display:flex;
         flex-direction: column;
@@ -80,7 +79,7 @@
         align-items: center;
     }
     .dashboard__title{
-        font-family: 'Playfair Display SC', serif;
+        font-family: $second-font-family;
         color: $white;
         font-size: 2rem;
     }

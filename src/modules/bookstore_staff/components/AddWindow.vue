@@ -6,9 +6,9 @@
             </div>
             <div class="fields-container">
                 <div v-for="(fieldName, index) in fieldsName" :key="index" class="form__field">
-                    <input type="text" name="" id="" placeholder="field"/>
-                    <span></span>
-                    <label for=""></label>
+                    <input type="text" name="" id="field" placeholder="field"/>
+                    <span class="outline"></span>
+                    <label>{{fieldName}}</label>
                 </div>
             </div>
         </form>
@@ -43,7 +43,6 @@ export default {
 <style lang="scss">
 
     @import "@/assets/ColorPalette.scss";
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700;900&display=swap');
 
     .back {
         width: 100vw;
@@ -84,11 +83,22 @@ export default {
         height: 50px;
     }
     h1 {
-        font-family: 'Playfair Display SC', serif;
+        font-family: $second-font-family;
         font-size: 1.4rem;
     }
     .form__field {
+        display: flex;
+        width: 350px;
+        height: 40px;
         margin: 20px 5px;
+        background: darkgreen;
+    }
+    span {
+        color: $dark-grey;
+    }
+    input {
+        width: 150px;
+        height: 25px;  
     }
     
 </style>
