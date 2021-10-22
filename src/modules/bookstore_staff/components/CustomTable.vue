@@ -1,21 +1,27 @@
 <template>
     <div class="container">
-        <div class="container-table">
+        <add-window
+            :isActivate="addWindowActivate"
+            @cancel="toggleModalAdd"
+            :fieldsName="columns"
+        ></add-window>
+        <div class="table-container">
             <div class="header">
                 <search-bar 
                     :filterFields="filterFields"
                     @searching="searchAnswer"
                 ></search-bar>
             </div>
-            <div class="fields-names-background-bar"></div>
+            <div class="fields-names-background-bar">
+                <thead>
+                    <tr>
+                        <th class="sticky" scope="col"></th>
+                        <th class="sticky" scope="col" v-for="(column, index) in columns" :key="index">{{ column }}</th>
+                    </tr>
+                </thead>
+            </div>
             <div class="data-container">
                 <table>
-                    <thead>
-                        <tr>
-                            <th scope="col" class="space-fill"></th>
-                            <th scope="col" v-for="(column, index) in columns" :key="index">{{ column }}</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr v-for="(row) in this.filteredRows" :key="row.id">
                             <td scope="row"><input type="checkbox" name="" id=""></td>
@@ -56,6 +62,7 @@
 <script>
 import { ref } from "vue";
 import SearchBar from "./SearchBar.vue";
+import AddWindow from "./AddWindow.vue"
 export default {
     props: ["rowsData", "fields","filterFields"],
     data() {
@@ -68,11 +75,10 @@ export default {
         }
     },
     components: {
-        SearchBar,
+        SearchBar, AddWindow,
     },
     methods: {
         searchAnswer: function(selectedFilter,search) {
-            console.log(search);
             this.filterField= selectedFilter;
             this.search= search; 
             this.filter();       
@@ -92,15 +98,16 @@ export default {
     setup() {
         const addWindowActivate = ref(false);
         const toggleModalAdd = () => {
-        addWindowActivate.value = !addWindowActivate.value;
+            console.log("add activado");
+            addWindowActivate.value = !addWindowActivate.value;
         };
         return { addWindowActivate, toggleModalAdd };
     },
     watch: {
         rowsData: function(){      
-            let obj_element_fields = {};
+            this.rows=[];
             this.rowsData.forEach(element => {
-                obj_element_fields = {};
+                let obj_element_fields = {};
                 this.fields.forEach(field => {
                     let index = field.indexOf(".");
                     if(index!=-1){
@@ -126,6 +133,7 @@ export default {
 
     .header {
         height: 16% ;
+        max-height: 81px;
         background: $light-yellow;
         border-radius: 20px 20px 0 0;
         display: flex;
@@ -133,37 +141,31 @@ export default {
         justify-content: center;
     }
 
-    thead tr th {
-        width: 50em;
-    }
-    thead th:nth-child(1) {
-        width: 30px !important;
-    }
-
-    th {
-        text-transform: capitalize;
-    }
-    .data-container {
-        display:flex;
-        overflow: auto;
-
-    }
     table {
         table-layout: fixed;
         border-collapse: collapse;
         margin: 0 30px;
         z-index: 1;
     }
-    .fields-names-background-bar {
+    .sticky {
+        position: sticky;
+        top:0;
+        z-index: 1;
+    }
+    thead th {
         background:$yellow-linear-gradient;
-        position: absolute;
-        height: 61px;
-        width: 58.7em;
-        display: flex;
     }
     td, th {
         letter-spacing: 1px;
         padding: 10px;
+        margin: 3px;
+        max-width: 6.9em;
+        min-width: 6.9em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    th {
+        text-transform: capitalize;
     }
     td {
         align-items: center;
@@ -171,7 +173,29 @@ export default {
         position: relative;
         color: $medium-grey;
     }
-    .container-table {
+    thead th:nth-child(1), tbody td:nth-child(1){
+        min-width: 30px;
+        max-width: 30px;
+    }
+
+    thead th:nth-child(2), tbody td:nth-child(2){
+        min-width: 70px;
+        max-width: 70px;
+    }
+    .data-container {
+        height: 73%;
+        overflow: auto;
+    }
+    
+    .fields-names-background-bar {
+        display: flex;
+        background:$yellow-linear-gradient;
+        height: 61px;
+        width: 58.7em;
+        padding: 0 30px;
+    }
+
+    .table-container {
         width: 58.7em;
         height: 100%;
         border-radius: 20px;
@@ -190,12 +214,12 @@ export default {
     .container {
         width: 63em;
         display: flex;
-        height: 90%;
-        margin: 0 auto;
+        height: 80%;
+        margin: auto;
     }
     .toolbar-container {
         background: $light-grey;
-        height: 90%;
+        height: 80%;
         width: 96px;
         position: absolute;
         transform: translateX(57em);
