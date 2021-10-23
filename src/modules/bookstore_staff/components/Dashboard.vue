@@ -9,6 +9,7 @@
             :fields="fields"
             :filterFields="filterFields"
             @refresh="refreshTable"
+            @add="AddData"
         ></custom-table>  
     </div >
 </template>
@@ -48,7 +49,7 @@
         methods: {
             async getData() {
                 try {
-                    axios.get(this.api)
+                    await axios.get(this.api)
                     .then((result) => {
                         this.rowsData=[];
                         this.rowsData= result.data;
@@ -56,8 +57,21 @@
                 }catch(error) {
                     if (error.response.status == "401")
                     alert("ERROR 401: books not found.");
+                };          
+            },
+            async AddData(addObjectData) {
+                console.log(addObjectData);
+                try {
+                    await axios.post( this.api, [addObjectData] )
+                    .then((result) => {
+                        alert(result.data['message']);
+                        this.getData();
+                    });
+       
+                }catch(error) {
+                    console.log(error);
                 };
-                        
+        
             },
             refreshTable() {
                 this.getData();

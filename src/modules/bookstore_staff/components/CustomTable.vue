@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <add-window
-            :isActivate="addWindowActivate"
+        <form-window
+            :isActivate="formWindowActivate"
             :fieldsName="columns"
-            @cancel="toggleModalAdd"
-            @add="setDataAdd"
-        ></add-window>
+            @cancel="formWindowStatus"
+            @execute="setDataAdd"
+        ></form-window>
         <div class="table-container">
             <div class="header">
                 <search-bar 
@@ -39,7 +39,7 @@
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="redo" class="svg-inline--fa fa-redo fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M500.33 0h-47.41a12 12 0 0 0-12 12.57l4 82.76A247.42 247.42 0 0 0 256 8C119.34 8 7.9 119.53 8 256.19 8.1 393.07 119.1 504 256 504a247.1 247.1 0 0 0 166.18-63.91 12 12 0 0 0 .48-17.43l-34-34a12 12 0 0 0-16.38-.55A176 176 0 1 1 402.1 157.8l-101.53-4.87a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12h200.33a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12z"></path></svg>
                     </button>
                 </div>
-                <div class="toolbar__option" @click="toggleModalAdd">
+                <div class="toolbar__option" @click="formWindowStatus">
                     <button class="toolbar__icon toolbar__icon--add">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square" class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>
                     </button>
@@ -63,7 +63,7 @@
 <script>
 import { ref } from "vue";
 import SearchBar from "./SearchBar.vue";
-import AddWindow from "./AddWindow.vue"
+import FormWindow from "./FormWindow.vue"
 export default {
     props: ["rowsData", "fields","filterFields"],
     data() {
@@ -75,8 +75,9 @@ export default {
             search: null,
         }
     },
+    emits: ['add'],
     components: {
-        SearchBar, AddWindow,
+        SearchBar, FormWindow,
     },
     methods: {
         searchAnswer: function(selectedFilter,search) {
@@ -95,17 +96,32 @@ export default {
                     });
             }
         },
-        setDataAdd: function(){
-            this.toggleModalAdd();
-            
-        }
+        setDataAdd: function(addObjectData){
+            this.formWindowStatus();
+            this.$emit('add', this.setDataStructure(this.rowsData[0], addObjectData) );
+        },
+        setDataStructure: function(input, objectData){
+                for( let key of Object.keys(input) ){
+                    if( typeof input[key] != "object" ){
+                            let value = objectData[key];
+                            if( value == null || key =="id" ) {
+                                delete input[key];
+                            }else{
+                                input[key] = value;
+                            }
+                    }else{
+                        this.setDataStructure(input[key], objectData);
+                    }           
+                }
+                return input;
+        }, 
     },
     setup() {
-        const addWindowActivate = ref(false);
-        const toggleModalAdd = () => {
-            addWindowActivate.value = !addWindowActivate.value;
+        const formWindowActivate = ref(false);
+        const formWindowStatus = () => {
+            formWindowActivate.value = !formWindowActivate.value;
         };
-        return { addWindowActivate, toggleModalAdd };
+        return { formWindowActivate, formWindowStatus };
     },
     watch: {
         rowsData: function(){   
@@ -116,7 +132,7 @@ export default {
                     let index = field.indexOf(".");
                     if(index!=-1){
                         obj_element_fields[field.slice(index+1,)] = element[field.slice(0,index)][field.slice(index+1,)];
-                        field=field.slice(index+1,);
+                        field = field.slice(index+1,);
                     }else {
                         obj_element_fields[field] = element[field];
                     }
@@ -128,7 +144,7 @@ export default {
             });
             this.filter();                  
         },
-    }
+    },
 }
 </script>
 

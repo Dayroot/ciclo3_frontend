@@ -14,10 +14,10 @@
                 </div>
             </div>
             <div class="button-bar">
-                <button @click="$emit('add', addObjectData)" class="button">
+                <button @click="emitExecute" class="button">
                     <span>add</span>
                 </button>
-                <button @click="$emit('cancel')" class="button">
+                <button @click="emitCancel" class="button">
                     <span>cancel</span>
                 </button>
             </div>
@@ -25,6 +25,7 @@
         <div @click="$emit('cancel')" class="back"></div>
     </div>
 </template>
+
 <script>
 export default {
     props: {
@@ -41,17 +42,26 @@ export default {
             required: true,
             default: null,
         }
-
     },
     data: function() {
         return {
             addObjectData: {},
         }
     },
-    emits: ['add', 'cancel'],
+    emits: ['execute', 'cancel'],
     methods: {
-        addActivated: function() {
-            console.log(this.addObjectData);
+        clearFields: function(){
+            for(let field of this.fields){
+                this.addObjectData[ field[1] ] = null;
+            }
+        },
+        emitExecute: function() {
+            this.$emit('execute', this.addObjectData);
+            this.clearFields();
+        },
+        emitCancel: function() {
+            this.$emit('cancel');
+            this.clearFields();
         }
     },
     computed: {
@@ -62,14 +72,13 @@ export default {
                 fields.push([fieldName,key]);
                 this.addObjectData[key] = null;
             })
-            console.log(this.addObjectData);
             return fields
         },
     },
-   
 }
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 
     @import "@/assets/ColorPalette.scss";
 
@@ -124,7 +133,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 350px;
+        width: 300px;
         height: 50px;
         margin: 5px 5px;
         background: darkgreen;
