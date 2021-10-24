@@ -11,6 +11,7 @@
             @refresh="refreshTable"
             @add="AddData"
             @update="UpdateData"
+            @delete="DeleteData"
         ></custom-table>  
     </div >
 </template>
@@ -61,8 +62,6 @@
                 };          
             },
             async AddData(addObjectData) {
-                console.log("Agregando datoss...")
-                console.log([addObjectData]);
                 try {
                     await axios.post( this.api, [addObjectData] )
                     .then((result) => {
@@ -76,8 +75,6 @@
         
             },
             async UpdateData(updateObjectData) {
-                console.log("Actualizando datoss...")
-                console.log([updateObjectData]);
                 try {
                     await axios.put( this.api, [updateObjectData] )
                     .then((result) => {
@@ -88,7 +85,21 @@
                 }catch(error) {
                     console.log(error);
                 };
-        
+            },
+            async DeleteData(DeleteObjects) {
+                console.log("Eliminando datoss...")
+                console.log(DeleteObjects);
+                console.log("Eliminando datoss...")
+                try {
+                    await axios.delete( this.api,{ data: DeleteObjects} )
+                    .then((result) => {
+                        alert(result.data['message']);
+                        this.getData();
+                    });
+       
+                }catch(error) {
+                    console.log(error);
+                };
             },
             refreshTable() {
                 this.getData();

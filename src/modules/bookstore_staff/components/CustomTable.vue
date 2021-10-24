@@ -77,7 +77,7 @@ export default {
             selectedRows:[]
         }
     },
-    emits: ['add'],
+    emits: ['add','update','delete','refresh'],
     components: {
         SearchBar, FormWindow,
     },
@@ -131,12 +131,14 @@ export default {
                 }
             }
             if(flag){
-                 this.selectedRows.push({id:id});
+                 this.selectedRows.push({"id":parseInt(id)});
             }
-            console.log(this.selectedRows);
         },
         setDelete: function(){
-            
+            if(this.selectedRows.length > 0){
+                this.$emit('delete',this.selectedRows);
+                this.selectedRows.length=[];
+            }
         }
     },
     setup() {
