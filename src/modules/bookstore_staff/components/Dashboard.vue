@@ -10,6 +10,7 @@
             :filterFields="filterFields"
             @refresh="refreshTable"
             @add="AddData"
+            @update="UpdateData"
         ></custom-table>  
     </div >
 </template>
@@ -60,9 +61,25 @@
                 };          
             },
             async AddData(addObjectData) {
-                console.log(addObjectData);
+                console.log("Agregando datoss...")
+                console.log([addObjectData]);
                 try {
                     await axios.post( this.api, [addObjectData] )
+                    .then((result) => {
+                        alert(result.data['message']);
+                        this.getData();
+                    });
+       
+                }catch(error) {
+                    console.log(error);
+                };
+        
+            },
+            async UpdateData(updateObjectData) {
+                console.log("Actualizando datoss...")
+                console.log([updateObjectData]);
+                try {
+                    await axios.put( this.api, [updateObjectData] )
                     .then((result) => {
                         alert(result.data['message']);
                         this.getData();
@@ -77,7 +94,7 @@
                 this.getData();
             }
         },
-        mounted:function(){
+        created:function(){
             this.getData();
         },
     }

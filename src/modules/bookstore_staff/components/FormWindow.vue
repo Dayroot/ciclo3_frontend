@@ -2,7 +2,7 @@
     <div v-if="isActivate">
         <div class="form">
             <div class="form__head">
-                <h1>{{title}}</h1>
+                <h1>{{typeOperation}}</h1>
             </div>
             <div class="fields-container">
                 <div v-for="(fieldName,index) in fields" :key="index" class="form__field">
@@ -15,7 +15,7 @@
             </div>
             <div class="button-bar">
                 <button @click="emitExecute" class="button">
-                    <span>add</span>
+                    <span>{{typeOperation}}</span>
                 </button>
                 <button @click="emitCancel" class="button">
                     <span>cancel</span>
@@ -33,9 +33,9 @@ export default {
             type: Boolean,
             default: false     
         },
-        title: {
+        typeOperation: {
             type: String,
-            default: "Title"
+            required: true,
         },
         fieldsName: {
             type: Array,
@@ -56,7 +56,7 @@ export default {
             }
         },
         emitExecute: function() {
-            this.$emit('execute', this.addObjectData);
+            this.$emit('execute', this.addObjectData, this.typeOperation );
             this.clearFields();
         },
         emitCancel: function() {
@@ -67,11 +67,14 @@ export default {
     computed: {
         fields(){
             let fields=[];
+            let key = null;
             this.fieldsName.forEach( fieldName => {
-                let key= fieldName.replace(" ","_");
-                fields.push([fieldName,key]);
-                this.addObjectData[key] = null;
-            })
+                fieldName =="id" && this.typeOperation=="add" ? (null):(
+                    key = fieldName.replace(" ","_"),
+                    fields.push([fieldName,key]),
+                    this.addObjectData[key] = null
+                )
+                });
             return fields
         },
     },
