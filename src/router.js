@@ -89,7 +89,13 @@ const routes = [
             {
                 path: '',
                 redirect: { name: 'inventory' }
-            }
+            },
+            {
+                path: 'account',
+                name: 'staffAccount',
+                component:  () => import(/* webpackChunkName: "staffAccount" */'./modules/bookstore_staff/pages/AccountStaff')
+            },
+
         ]
     }
     

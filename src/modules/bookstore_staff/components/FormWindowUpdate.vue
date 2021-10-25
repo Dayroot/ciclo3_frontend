@@ -11,7 +11,7 @@
                         <div>
                             <label>{{fieldName[0]}}</label>
                         </div>
-                        <input type="text" v-model="addObjectData[fieldName[1]]" placeholder=""/>
+                        <input type="text" v-model="addObjectData[fieldName[1]]" />
                         <span class="outline"></span>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
             </div>
         </transition>
         <transition name="fade">
-            <div v-if="isActivate" @click="$emit('cancel')" class="back">
+            <div v-if="isActivate" @click="$emit('cancel','update')" class="back">
             </div>
         </transition>
     </div>
@@ -40,22 +40,24 @@ export default {
             type: Boolean,
             default: false     
         },
-        typeOperation: {
-            type: String,
-            required: true,
-        },
         fieldsName: {
             type: Array,
             required: true,
-            default: null,
+            default: null
+        },
+        recordsUpdate: {
+            type: Array,
+            default: []
         }
     },
     data: function() {
         return {
             addObjectData: {},
+            typeOperation: "update",
+            valueFields: "jaja",
         }
     },
-    emits: ['execute', 'cancel'],
+    emits: ['update', 'cancel'],
     methods: {
         clearFields: function(){
             for(let field of this.fields){
@@ -63,28 +65,34 @@ export default {
             }
         },
         emitExecute: function() {
-            this.$emit('execute', this.addObjectData, this.typeOperation );
+            this.$emit('update', this.typeOperation);
             this.clearFields();
         },
         emitCancel: function() {
-            this.$emit('cancel');
-            this.clearFields();
+            this.$emit('cancel','update');
+            // this.clearFields();
         }
     },
     computed: {
         fields(){
+            console.log("aquiiii tambien");
             let fields=[];
             let key = null;
             this.fieldsName.forEach( fieldName => {
-                fieldName =="id" && this.typeOperation=="add" ? (null):(
+                fieldName == "id" && this.typeOperation=="add" ? ( null ) : (
                     key = fieldName.replace(" ","_"),
                     fields.push([fieldName,key]),
-                    this.addObjectData[key] = null
-                )
+                    this.recordsUpdate.length != 1 < this.fieldsName.length  ? this.addObjectData[key] = null : this.addObjectData[key] = this.recordsUpdate[0][key]
+                    );
                 });
+            console.log(this.addObjectData);
+            console.log("aquiiii tambien");
             return fields
         },
     },
+    watch: {
+        
+    }
 }
 </script>
 

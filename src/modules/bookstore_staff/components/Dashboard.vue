@@ -8,6 +8,7 @@
             :rowsData="rowsData" 
             :fields="fields"
             :filterFields="filterFields"
+            :dataStructure="dataStructure"
             @refresh="refreshTable"
             @add="AddData"
             @update="UpdateData"
@@ -38,7 +39,11 @@
             filterFields:{
                 type: Array,
                 required: true,
-            }
+            },
+            dataStructure: {
+                type: Object,
+                required: true
+            },
         },
         data: function(){
             return {
