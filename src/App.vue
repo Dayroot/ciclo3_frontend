@@ -44,6 +44,7 @@
         margin:0 auto;
         padding: 0;
         box-sizing: border-box;
+        overflow: hidden;
     }
     /* .container {
         width: 70vw;

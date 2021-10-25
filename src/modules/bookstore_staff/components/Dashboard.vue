@@ -62,6 +62,9 @@
                 };          
             },
             async AddData(addObjectData) {
+                console.log("datos que se estan enviando");
+                console.log(addObjectData);
+                console.log("datos que se estan enviando");
                 try {
                     await axios.post( this.api, [addObjectData] )
                     .then((result) => {

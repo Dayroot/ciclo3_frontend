@@ -1,29 +1,36 @@
 <template>
-    <div v-if="isActivate">
-        <div class="form">
-            <div class="form__head">
-                <h1>{{typeOperation}}</h1>
-            </div>
-            <div class="fields-container">
-                <div v-for="(fieldName,index) in fields" :key="index" class="form__field">
-                    <div>
-                        <label>{{fieldName[0]}}</label>
+
+    <div class="window-container">
+        <transition name="slide">
+            <div v-if="isActivate" class="form">
+                <div class="form__head">
+                    <h1>{{typeOperation}}</h1>
+                </div>
+                <div class="fields-container">
+                    <div v-for="(fieldName,index) in fields" :key="index" class="form__field">
+                        <div>
+                            <label>{{fieldName[0]}}</label>
+                        </div>
+                        <input type="text" v-model="addObjectData[fieldName[1]]" placeholder=""/>
+                        <span class="outline"></span>
                     </div>
-                    <input type="text" v-model="addObjectData[fieldName[1]]" placeholder=""/>
-                    <span class="outline"></span>
+                </div>
+                <div class="button-bar">
+                    <button @click="emitExecute" class="button">
+                        <span>{{typeOperation}}</span>
+                    </button>
+                    <button @click="emitCancel" class="button">
+                        <span>cancel</span>
+                    </button>
                 </div>
             </div>
-            <div class="button-bar">
-                <button @click="emitExecute" class="button">
-                    <span>{{typeOperation}}</span>
-                </button>
-                <button @click="emitCancel" class="button">
-                    <span>cancel</span>
-                </button>
+        </transition>
+        <transition name="fade">
+            <div v-if="isActivate" @click="$emit('cancel')" class="back">
             </div>
-        </div>
-        <div @click="$emit('cancel')" class="back"></div>
+        </transition>
     </div>
+        
 </template>
 
 <script>
@@ -85,6 +92,25 @@ export default {
 
     @import "@/assets/ColorPalette.scss";
 
+    .slide-leave-active,
+    .slide-enter-active {
+        transition: all 300ms ease;
+    }
+    .slide-leave-to,
+    .slide-enter-from {
+        transform: translate(200%, 0);
+    }
+    .fade-leave-active,
+    .fade-enter-active {
+       
+        transition: all 300ms ease;
+
+    }
+    .fade-leave-to,
+    .fade-enter-from {
+        opacity: 0;
+    }
+
     .back {
         width: 100vw;
         height: 100vh;
@@ -104,13 +130,13 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        top:50%;
+        margin-top: -321.5px;
         box-shadow: 0px 1px 2px 1px rgba($color:#000000, $alpha: 0.2);
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         z-index: 4;
     }
+
     .fields-container {
         background: lightgreen;
         display: flex;

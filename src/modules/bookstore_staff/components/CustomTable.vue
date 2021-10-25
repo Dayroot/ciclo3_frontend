@@ -7,6 +7,13 @@
             @cancel="formWindowStatus"
             @execute="setData"
         ></form-window>
+        <confirmation-window
+            :isActivate="confirmationWindowActivate"
+            :typeOperation="typeOperation"
+            :recordsNumber="recordsNumber"
+            @accept="setDelete"
+            @cancel="formWindowStatus"
+        ></confirmation-window>
         <div class="table-container">
             <div class="header">
                 <search-bar 
@@ -25,8 +32,8 @@
             <div class="data-container">
                 <table>
                     <tbody>
-                        <tr v-for="(row) in this.filteredRows" :key="row.id">
-                            <td @click="activeCheckbox(row.id)" scope="row"><input type="checkbox" name="" id=""></td>
+                        <tr v-for="(row) in this.filteredRows" :key="row.id" :class="{'row-select': checkRows[row.id]}">
+                            <td scope="row"><input type="checkbox" name="" id="" @click="activeCheckbox(row.id)"></td>
                             <td v-for="(valueField, index) in Object.values(row)" :key="index">{{ valueField }}</td>
                         </tr>
                     </tbody>
@@ -45,7 +52,7 @@
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square" class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>
                     </button>
                 </div>
-                <div class="toolbar__option" @click="setDelete">
+                <div class="toolbar__option" @click="setDelete('openWindow')">
                     <button class="toolbar__icon toolbar__icon--delete">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>
                     </button>
@@ -65,6 +72,8 @@
 import { ref } from "vue";
 import SearchBar from "./SearchBar.vue";
 import FormWindow from "./FormWindow.vue"
+import ConfirmationWindow from "./ConfirmationWindow.vue"
+
 export default {
     props: ["rowsData", "fields","filterFields"],
     data() {
@@ -73,13 +82,18 @@ export default {
             columns: [],
             filteredRows: [],
             filterField: null,
-            search: null,
-            selectedRows:[]
+            search: "",
+            selectedRows:[],
+            checkRows:{},
+            deleteConfirmation: false,
+            recordsNumber: 0,
         }
     },
     emits: ['add','update','delete','refresh'],
     components: {
-        SearchBar, FormWindow,
+        SearchBar, 
+        FormWindow, 
+        ConfirmationWindow,
     },
     methods: {
         searchAnswer: function(selectedFilter,search) {
@@ -88,7 +102,7 @@ export default {
             this.filter();       
         },
         filter: function() {
-            if (this.search == null || this.search.length == 0){
+            if (this.search.length == 0){
                 this.filteredRows = this.rows
             } else {
                 this.filteredRows = this.rows.filter(
@@ -99,9 +113,8 @@ export default {
             }
         },
         setData: function(objectData, operation){
-            this.formWindowStatus('');
             this.$emit(operation, this.setDataStructure(this.rowsData[0], objectData, operation) );
-            
+            this.formWindowStatus('add');
         },
         setDataStructure: function(input, objectData, operation){
             for( let key of Object.keys(input) ){
@@ -133,22 +146,35 @@ export default {
             if(flag){
                  this.selectedRows.push({"id":parseInt(id)});
             }
+            this.checkRows[id]= !this.checkRows[id];
         },
-        setDelete: function(){
-            if(this.selectedRows.length > 0){
-                this.$emit('delete',this.selectedRows);
+        setDelete: function(status){
+            let dataDelete = this.selectedRows.length > 0 ? this.selectedRows : this.filteredRows;
+            if(status=="accept"){
+                this.$emit('delete',dataDelete);
                 this.selectedRows.length=[];
+                this.recordsNumber = 0;
+            }else{
+                this.recordsNumber = dataDelete.length;
             }
+            this.formWindowStatus('delete');
         }
     },
     setup() {
+
         const formWindowActivate = ref(false);
         const typeOperation = ref('');
-        const formWindowStatus = (operation) => {
-            typeOperation.value = operation;
-            formWindowActivate.value = !formWindowActivate.value;
+        const confirmationWindowActivate = ref(false);
+        const formWindowStatus = (operation) => {    
+            typeOperation.value = operation,
+            operation =="delete" ? (
+                    confirmationWindowActivate.value = !confirmationWindowActivate.value 
+                ):(
+                    formWindowActivate.value = !formWindowActivate.value
+                ) 
         };
-        return { formWindowActivate, formWindowStatus, typeOperation };
+
+        return { formWindowActivate, formWindowStatus, typeOperation, confirmationWindowActivate};
     },
     watch: {
         rowsData: function(){   
@@ -158,8 +184,12 @@ export default {
                 this.fields.forEach(field => {
                     let index = field.indexOf(".");
                     if(index!=-1){
-                        obj_element_fields[field.slice(index+1,)] = element[field.slice(0,index)][field.slice(index+1,)];
+                        let value = element[field.slice(0,index)][field.slice(index+1,)]
+                        obj_element_fields[field.slice(index+1,)] = value;
                         field = field.slice(index+1,);
+                        if(field=="id"){
+                            this.checkRows[ value ] = false;
+                        }
                     }else {
                         obj_element_fields[field] = element[field];
                     }
@@ -259,6 +289,14 @@ export default {
         width: 18px;
         height: 18px;      
     }
+
+    .row-select {
+            background: $faded-orange;
+            & td {
+                color: $dark-grey;
+            }
+        }
+
     .container {
         width: 63em;
         display: flex;
