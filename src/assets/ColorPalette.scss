@@ -14,8 +14,10 @@ $yellow-solid: #f7b228;
 $yellow-solid-active: #ffe1a6;
 $light-yellow: #F3DDB2;
 $faded-yellow: linear-gradient(90deg, #FFBF42 0%, rgba(255, 191, 66, 0.2) 100%);
+$faded-orange: linear-gradient(90deg, rgba(88,25,11,0) 0%, rgba(233,101,59,0.7) 25%, rgba(255,112,66,0.7) 75%, rgba(88,25,11,0) 100%);
 $orange-radial-gradient: radial-gradient(50% 50% at 50% 50%, #FF7042 19.06%, #A7351C 100%);
 $orange-linear-gradient: linear-gradient(179.09deg, #FF7042 52.58%, #A7351C 100.85%);
+$orange-solid: #FF7042;
 
 /* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700;900&display=swap');
