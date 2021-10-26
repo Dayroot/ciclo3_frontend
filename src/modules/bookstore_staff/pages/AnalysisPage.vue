@@ -1,14 +1,22 @@
 <template>
-    <div class="chart">
-      <chart  
-        :dataSale="dataSale"
-      ></chart>
+    <div class="container">
+        <div class="pie-chart">
+            <pie-chart>
+                :dataSale="dataSale"
+            ></pie-chart>
+        </div >
+        <div class="bar-chart">
+            <bar-chart  
+                :dataSale="dataSale"
+            ></bar-chart>   
+        </div >
     </div >
 </template>
 
 <script>
     import axios from 'axios';
-    import Chart from "../components/Chart.vue";
+    import BarChart from "../components/BarChart.vue";
+    import PieChart from "../components/PieChart.vue";
    
     export default {
         name: 'analysisPage',
@@ -43,10 +51,31 @@
             }
         },
         components: {
-            Chart,
+            BarChart,
+            PieChart,
         },
-
-
 
     }
 </script>
+
+<style lang="scss" scoped>
+
+.container{
+    display: flex;
+    align-items:center;
+    height:100vh;
+    //background: white;
+}
+
+.pie-chart{
+    background: white;
+    margin: 3px;
+    width: 420px;
+}
+
+.bar-chart{
+    background: white;
+    margin: 3px;
+}
+
+</style>
