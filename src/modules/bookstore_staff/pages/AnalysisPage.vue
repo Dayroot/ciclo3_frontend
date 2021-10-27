@@ -1,13 +1,14 @@
 <template>
     <div class="container">
         <div class="pie-chart">
-            <pie-chart>
-                :dataSale="dataSale"
+            <pie-chart
+                :dataYears="dataYears"
+                :year="year"
             ></pie-chart>
         </div >
         <div class="bar-chart">
             <bar-chart  
-                :dataSale="dataSale"
+                :dataMonth="dataMonth"
             ></bar-chart>   
         </div >
     </div >
@@ -15,45 +16,52 @@
 
 <script>
     import axios from 'axios';
-    import BarChart from "../components/BarChart.vue";
-    import PieChart from "../components/PieChart.vue";
+    import { defineAsyncComponent } from 'vue';
    
     export default {
         name: 'analysisPage',
         data: function(){
             return {
-                dataSale: [
-                    {
-                        product: 1,
-                        quantity: 8,
-                        type: "magazine",
-                        price: 64750,
-                        total: 518000, 
-                        date: '2020-3-3',
-                    },
-                    {
-                        product: 3,
-                        quantity: 13,
-                        type: "magazine",
-                        price: 43522, 
-                        total: 522264,
-                        date: '2020-3-3',
-                    },
-                    {
-                        product: 6,
-                        quantity: 5,
-                        type: "book",
-                        price: 55238, 
-                        total: 276190,
-                        date: '2020-3-3',
-                    }
-                ],
+                api: "https://bookstore-macad-backend.herokuapp.com/",
+                apiDataYears: "sales-year/",
+                apiDataMonth: "sales-month/",
+                dataYears: {},
+                dataMonth: {},
+                year: "2021",
             }
         },
         components: {
-            BarChart,
-            PieChart,
+            BarChart: defineAsyncComponent(() => import( /* webpackChunkName: "pieChart" */ '../components/BarChart')),
+            PieChart: defineAsyncComponent(() => import( /* webpackChunkName: "pieChart" */ '../components/PieChart')),
+            
         },
+        methods:{
+                async getDataYears() {
+                try {
+                    await axios.get( "https://bookstore-macad-backend.herokuapp.com/sales-year/" )
+                    .then((result) => {
+                        this.dataYears = result.data;
+                    })
+                }catch(error) {
+                    if (error.response.status == "401")
+                    alert("ERROR 401: not found.");
+                };          
+            },
+            async getDataMonth() {
+                try {
+                    await axios.get( this.api + apiDataMonth )
+                    .then((result) => {
+                        this.dataMonth= result.data;
+                    })
+                }catch(error) {
+                    if (error.response.status == "401")
+                    alert("ERROR 401: not found.");
+                };          
+            }
+        },
+        created:function(){
+            this.getDataYears();
+        }
 
     }
 </script>
@@ -63,8 +71,9 @@
 .container{
     display: flex;
     align-items:center;
+    justify-content: center;
     height:100vh;
-    //background: white;
+
 }
 
 .pie-chart{

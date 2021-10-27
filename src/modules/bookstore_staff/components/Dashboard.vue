@@ -11,7 +11,7 @@
             :dataStructure="dataStructure"
             @refresh="refreshTable"
             @add="AddData"
-            @update="UpdateData"
+            @updateDB="UpdateData"
             @delete="DeleteData"
         ></custom-table>  
     </div >
@@ -63,13 +63,13 @@
                     })
                 }catch(error) {
                     if (error.response.status == "401")
-                    alert("ERROR 401: books not found.");
+                    alert("ERROR 401: not found.");
                 };          
             },
             async AddData(addObjectData) {
-                console.log("datos que se estan enviando");
+                console.log("lllllllllllllllll");
                 console.log(addObjectData);
-                console.log("datos que se estan enviando");
+                console.log("lllllllllllllll");
                 try {
                     await axios.post( this.api, [addObjectData] )
                     .then((result) => {
@@ -83,11 +83,14 @@
         
             },
             async UpdateData(updateObjectData) {
+                console.log("fffffffffffffffffff");
+                console.log(updateObjectData);
+                console.log("fffffffffffffffffff");
                 try {
-                    await axios.put( this.api, [updateObjectData] )
+                    await axios.put( this.api, updateObjectData )
                     .then((result) => {
                         alert(result.data['message']);
-                        this.getData();
+                        // this.getData();
                     });
        
                 }catch(error) {
@@ -95,9 +98,6 @@
                 };
             },
             async DeleteData(DeleteObjects) {
-                console.log("Eliminando datoss...")
-                console.log(DeleteObjects);
-                console.log("Eliminando datoss...")
                 try {
                     await axios.delete( this.api,{ data: DeleteObjects} )
                     .then((result) => {

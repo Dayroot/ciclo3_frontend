@@ -19,20 +19,22 @@
             return {
                 title: "Inventory",
                 api:"https://bookstore-macad-backend.herokuapp.com/book/",
-                fields:["product.id","title","author","publication_date","editorial", "isbn", "product.price", "product.stock"],
+                fields:["product.id","title","author","isbn","product.editorial", "product.stock", "product.price","product.publication_date" ],
                 filterFields: ["id","title","author","editorial", "isbn"],
                 dataStructure: {
                     "product": {
-                        "description": "libro de álgebra",
-                        "provider_name": "distriomega",
-                        "stock": 72,
-                        "price": 135000
+                        "id": 0,
+                        "editorial": "",
+                        "stock": 0,
+                        "price": 0,
+                        "description": "",
+                        "type": "",
+                        "publication_date": "",
+                        "image_url": ""
                     },
-                    "title": "Álgebra del Baldor",
-                    "author": "Aurelio Baldor",
-                    "publication_date": "1941-06-19",
-                    "isbn": "30293695809",
-                    "editorial": "alfaguara"
+                    "title": "",
+                    "author": "",
+                    "isbn": ""
                 }
             }
         },

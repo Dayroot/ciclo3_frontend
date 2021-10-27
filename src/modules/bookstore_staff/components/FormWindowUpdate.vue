@@ -11,12 +11,12 @@
                         <div>
                             <label>{{fieldName[0]}}</label>
                         </div>
-                        <input type="text" v-model="addObjectData[fieldName[1]]" />
+                        <input type="text" v-model="updateObjectData[fieldName[1]]" />
                         <span class="outline"></span>
                     </div>
                 </div>
                 <div class="button-bar">
-                    <button @click="emitExecute" class="button">
+                    <button @click="emitConfirmUpdate" class="button">
                         <span>{{typeOperation}}</span>
                     </button>
                     <button @click="emitCancel" class="button">
@@ -26,7 +26,7 @@
             </div>
         </transition>
         <transition name="fade">
-            <div v-if="isActivate" @click="$emit('cancel','update')" class="back">
+            <div v-if="isActivate" @click="$emit('cancel',typeOperation)" class="back">
             </div>
         </transition>
     </div>
@@ -52,21 +52,23 @@ export default {
     },
     data: function() {
         return {
-            addObjectData: {},
+            updateObjectData: {},
             typeOperation: "update",
-            valueFields: "jaja",
         }
     },
-    emits: ['update', 'cancel'],
+    emits: ['confirmUpdate', 'cancel'],
     methods: {
         clearFields: function(){
             for(let field of this.fields){
-                this.addObjectData[ field[1] ] = null;
+                this.updateObjectData[ field[1] ] = null;
             }
         },
-        emitExecute: function() {
-            this.$emit('update', this.typeOperation);
-            this.clearFields();
+        emitConfirmUpdate: function() {
+            console.log("dentro del form update cuando emite");
+            console.log(this.recordsUpdate);
+            console.log("dentro del form update cuando emite");
+            this.$emit('confirmUpdate', this.updateObjectData);
+            // this.clearFields();
         },
         emitCancel: function() {
             this.$emit('cancel','update');
@@ -75,24 +77,25 @@ export default {
     },
     computed: {
         fields(){
-            console.log("aquiiii tambien");
+            console.log("dentro del form update");
+            console.log(this.recordsUpdate);
+            console.log("dentro del form update");
             let fields=[];
             let key = null;
             this.fieldsName.forEach( fieldName => {
-                fieldName == "id" && this.typeOperation=="add" ? ( null ) : (
+                fieldName == "id" ? ( null ) : (
                     key = fieldName.replace(" ","_"),
                     fields.push([fieldName,key]),
-                    this.recordsUpdate.length != 1 < this.fieldsName.length  ? this.addObjectData[key] = null : this.addObjectData[key] = this.recordsUpdate[0][key]
+                    this.recordsUpdate.length != 1  ? this.updateObjectData[key] = null : this.updateObjectData[key] = this.recordsUpdate[0][key]
                     );
                 });
-            console.log(this.addObjectData);
-            console.log("aquiiii tambien");
+            console.log("dentro del form update Despues de asignar");
+            console.log(this.recordsUpdate);
+            console.log(this.updateObjectData);
+            console.log("dentro del form update Despues de asignar");
             return fields
         },
     },
-    watch: {
-        
-    }
 }
 </script>
 
