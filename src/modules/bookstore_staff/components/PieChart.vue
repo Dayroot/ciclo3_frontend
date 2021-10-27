@@ -1,65 +1,66 @@
 <template>
     <div class="chart">
-        <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+        <apexchart ref="chart1" type="donut" :options="chartOptions" :series="series"></apexchart>
     </div >
 </template>
 
 <script>
-    import axios from 'axios';
 
     export default {
-        name: 'chart',
+        name: 'piechart',
         props: {
-            dataSale:{
-                type: Array, 
-                required: true, 
+            dataYears:{
+                type: Object,
+                required: true,
+            },
+            year:{
+                type: String,
+                default: "2021",
             }
         },
 
         data: function() {
             return {
-                series: [49, 51],
+                series: [50,50],  
                 chartOptions: {
                     chart: {
-                    type: 'donut',
+                        type: 'donut',
                     },
                     labels: ['Magazines', 'Books'],
                     title: {
                         text: "% Sales per Year"
                     },
                     responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                        width: 350
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 350
+                            },
+                            legend: {
+                                position: 'bottom',
+                            }
                         },
-                        legend: {
-                        position: 'bottom',
-                        }
-                    },
                     }],
-                },    
+                }
             }
         },
-     
-        methods: {
-            // async getData() {
-            //     try {
-            //         axios.get(this.api)
-            //         .then((result) => {
-            //             this.rowsData=[];
-            //             this.rowsData= result.data;
-            //         })
-            //     }catch(error) {
-            //         if (error.response.status == "401")
-            //         alert("ERROR 401: books not found.");
-            //     };
-                        
-            // },
+        
+        methods:{
+            setDataSeries: function() {
+                let books_ptg = this.dataYears['books'][this.year]
+                let magazines_ptg = this.dataYears['magazines'][this.year]
+                this.$refs.chart1.updateSeries([books_ptg, magazines_ptg]);                    
+            },
         },
-        mounted:function(){
-            //this.getData();
+        watch: {
+            dataYears: function(){
+                this.setDataSeries();
+            },
         },
+        updated() {
+            this.setDataSeries()
+        },
+    
     }
     
 </script>
