@@ -10,8 +10,8 @@
     export default {
         name: 'chart',
         props: {
-            dataSale:{
-                type: Array, 
+            dataMonth:{
+                type: Object, 
                 required: true, 
             }
         },
@@ -77,24 +77,6 @@
             }
         },
      
-        methods: {
-            // async getData() {
-            //     try {
-            //         axios.get(this.api)
-            //         .then((result) => {
-            //             this.rowsData=[];
-            //             this.rowsData= result.data;
-            //         })
-            //     }catch(error) {
-            //         if (error.response.status == "401")
-            //         alert("ERROR 401: books not found.");
-            //     };
-                        
-            // },
-        },
-        mounted:function(){
-            //this.getData();
-        },
     }
     
 </script>

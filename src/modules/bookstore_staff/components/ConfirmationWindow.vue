@@ -17,17 +17,17 @@
                     <p>are you sure you want to <span class="highlighted-text">{{typeOperation}} {{recordsNumber}}</span> records?</p>
                 </div>
                 <div class="button-bar">
-                    <button @click="$emit('accept','accept')" class="button">
+                    <button @click="$emit('accept',typeOperation)" class="button">
                         <span>accept</span>
                     </button>
-                    <button @click="$emit('cancel','delete')" class="button">
+                    <button @click="$emit('cancel', 'confirmation')" class="button">
                         <span>cancel</span>
                     </button>
                 </div>
             </div>
         </transition>
         <transition name="fade">
-            <div v-if="isActivate" @click="$emit('cancel','delete')" class="back">
+            <div v-if="isActivate" @click="$emit('cancel','confirmation')" class="back">
             </div>
         </transition>
     </div>
@@ -42,7 +42,7 @@ export default {
         },
         typeOperation: {
             type: String,
-            default: "delete"
+            required: true
         },
         recordsNumber: {
             type: Number,

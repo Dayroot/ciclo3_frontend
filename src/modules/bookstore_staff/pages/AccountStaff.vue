@@ -9,10 +9,5 @@
 import Account from "../../shared/pages/Account.vue";
 export default {
     components: {Account},
-    data() {
-        return {
-            dataAccount: null,
-        }
-    },
 }
 </script>

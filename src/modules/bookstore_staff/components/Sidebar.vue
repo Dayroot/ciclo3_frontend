@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="menu__options">
-                <router-link to="staffAccount" class="option">  
+                <router-link to="account" class="option">  
                     <div class="option__content">           
                         <div class="option__icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -11,12 +11,13 @@
             :fieldsName="columns"
             :recordsUpdate="recordsUpdate"
             @cancel="formWindowStatus"
-            @update="setUpdate"
+            @confirmUpdate="confirmUpdate"
         ></form-window-update>
         <confirmation-window
             :isActivate="confirmationWindowActivate"
             :recordsNumber="recordsNumber"
-            @accept="setDelete"
+            :typeOperation="typeOperationConfirm"
+            @accept="setExecute"
             @cancel="formWindowStatus"
         ></confirmation-window>
         <div class="table-container">
@@ -26,19 +27,17 @@
                     @searching="searchAnswer"
                 ></search-bar>
             </div>
-            <div class="fields-names-background-bar">
-                <thead>
-                    <tr>
-                        <th class="sticky" scope="col"></th>
-                        <th class="sticky" scope="col" v-for="(column, index) in columns" :key="index">{{ column }}</th>
-                    </tr>
-                </thead>
-            </div>
             <div class="data-container">
                 <table>
+                    <thead class="fields-names-background-bar">
+                        <tr>
+                            <th class="sticky" scope="col"></th>
+                            <th class="sticky" scope="col" v-for="(column, index) in columns" :key="index">{{ column }}</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr v-for="(row) in this.filteredRows" :key="row.id" :class="{'row-select': checkRows[row.id]}">
-                            <td scope="row"><input type="checkbox" name="" id="" :checked="checkRows[row.id]" @click="activeCheckbox(row)"></td>
+                            <td scope="row"><input type="checkbox" name="" id="" :checked="checkRows[row.id]" @click="activeCheckbox(row)" /></td>
                             <td v-for="(valueField, index) in Object.values(row)" :key="index">{{ valueField }}</td>
                         </tr>
                     </tbody>
@@ -57,7 +56,7 @@
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square" class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>
                     </button>
                 </div>
-                <div class="toolbar__option" @click="setDelete('delete')">
+                <div class="toolbar__option" @click="setDelete('confirmation')">
                     <button class="toolbar__icon toolbar__icon--delete">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>
                     </button>
@@ -93,10 +92,11 @@ export default {
             checkRows:{},
             deleteConfirmation: false,
             recordsNumber: 0,
-            recordsUpdate:[],
+            // recordsUpdate:[],
+            emitUpdateDataArray: [],
         }
     },
-    emits: ['add','update','delete','refresh'],
+    emits: ['add','updateDB','delete','refresh'],
     components: {
         SearchBar, 
         FormWindowAdd,
@@ -121,10 +121,10 @@ export default {
             }
         },
         setData: function(objectData, operation){
-            this.$emit(operation, this.setDataStructure(this.dataStructure, objectData, operation) );
+            this.$emit(operation, this.setDataStructure(this.dataStructure, objectData) );
             this.formWindowStatus('add');
         },
-        setDataStructure: function(input, objectData, operation){
+        setDataStructure: function(input, objectData){
             for( let key of Object.keys(input) ){
                 if( typeof input[key] != "object" ){
                         let value = objectData[key];
@@ -137,7 +137,7 @@ export default {
                             input[key] = value;
                         }
                 }else{
-                    this.setDataStructure(input[key], objectData, operation);
+                    this.setDataStructure(input[key], objectData);
                 }           
             }
             return input;
@@ -164,19 +164,64 @@ export default {
                 this.recordsNumber = 0;
             }else{
                 this.recordsNumber = dataDelete.length;
+                this.formWindowStatus('confirmation', 'delete');
             }
-            this.formWindowStatus('delete');
         },
         setUpdate: function(status){
-            let dataUpdate = this.selectedRows.length > 0 ? this.selectedRows : this.filteredRows;
-            if(status=="xxxx"){
-                this.$emit('update',dataDelete);
+            if(status=="accept"){
+                this.$emit('updateDB', this.emitUpdateDataArray );
                 this.selectedRows = [];
                 this.recordsUpdate = [];
             }else{
-                this.recordsUpdate = dataUpdate;
+                this.recordsUpdate = this.selectedRows.length > 0 ? this.selectedRows : this.filteredRows;
+
+                console.log("antes de abrir el form update");
+                console.log(this.recordsUpdate);
+                console.log("antes de abrir el form update");
+
+                this.openFormUpdate('update');
             }
+            
+        },
+        confirmUpdate: function(updateObjectData){
+            
+            console.log("confirm update antes de hacer operacion");
+            console.log(this.recordsUpdate);
+            console.log(this.selectedRows);
+            console.log("confirm update antes de hacer operacion");
+
+            this.recordsNumber = this.recordsUpdate.length;
+            this.emitUpdateDataArray = this.setDataUpdate(updateObjectData);
+
+            console.log("confirm update antes de abrir");
+            console.log(this.recordsUpdate);
+            console.log("confirm update antes de abrir");
+            
             this.formWindowStatus('update');
+            this.formWindowStatus('confirmation', 'update');
+        },
+        setDataUpdate: function(updateObjectData){
+            for(let index in this.recordsUpdate){
+                for(let key of Object.keys(updateObjectData) ){
+                    let value = updateObjectData[key];
+                    if( value != null){
+                        this.recordsUpdate[index][key] = value;
+                    } 
+                }
+                this.recordsUpdate[index] = this.setDataStructure(this.dataStructure, this.recordsUpdate[index]);
+            }
+            return this.recordsUpdate
+        },
+        setExecute: function(operation){
+            if (operation == "delete"){
+                this.setDelete("accept");
+            }else if(operation == "update"){
+                this.setUpdate("accept");
+            }
+            this.formWindowStatus('confirmation');
+        },
+        openFormUpdate:function(s){
+            this.formWindowStatus('update')
         }
     },
     setup() {
@@ -184,19 +229,23 @@ export default {
         const formWindowAddActivate = ref(false);
         const formWindowUpdateActivate = ref(false);
         const confirmationWindowActivate = ref(false);
+        const typeOperationConfirm = ref("none");
+        const recordsUpdate = ref([]);
 
-        const formWindowStatus = (operation) => {    
-            operation == "delete" ? (
-                    confirmationWindowActivate.value = !confirmationWindowActivate.value 
+        const formWindowStatus = (option, operation="none") => { 
+              
+            option == "confirmation" ? (
+                    confirmationWindowActivate.value = !confirmationWindowActivate.value,
+                    typeOperationConfirm.value= operation
                 ):(
                     null
                 );
-            operation == "update" ? (
+            option == "update" ? (
                     formWindowUpdateActivate.value = !formWindowUpdateActivate.value 
                 ):(
                     null
                 );
-            operation == "add" ? (
+            option == "add" ? (
                     formWindowAddActivate.value = !formWindowAddActivate.value 
                 ):(
                     null
@@ -204,15 +253,12 @@ export default {
             
         };
 
-        return { confirmationWindowActivate, formWindowUpdateActivate, formWindowAddActivate, formWindowStatus};
+        return { confirmationWindowActivate, formWindowUpdateActivate, formWindowAddActivate, formWindowStatus, typeOperationConfirm, recordsUpdate};
     },
     watch: {
         rowsData: function(){
             // clear checkbox
             // this.selectedRows = [];
-            console.log("checkcccccccboxiiiiiiiiiiii");
-            console.log(this.filteredRows);
-            console.log("checkcccccccboxiiiiiiiiiiiiii");
             if(this.columns.length < this.fields.length){
                 for(let field of this.fields){
                     let index = field.indexOf(".");
@@ -232,9 +278,9 @@ export default {
                         obj_element_fields[field.slice(index+1,)] = value;
                         field = field.slice(index+1,);
                         // clear checkbox
-                        // if(field=="id"){
-                        //     this.checkRows[ value ] = false;
-                        // }
+                        if(field=="id"){
+                            this.checkRows[ value ] = false;
+                        }
                     }else {
                         obj_element_fields[field] = element[field];
                     }
@@ -263,8 +309,8 @@ export default {
     table {
         table-layout: fixed;
         border-collapse: collapse;
-        margin: 0 30px;
         z-index: 1;
+        width: 100%;
     }
     .sticky {
         position: sticky;
@@ -293,21 +339,19 @@ export default {
         color: $medium-grey;
     }
     thead th:nth-child(1), tbody td:nth-child(1){
-        min-width: 30px;
-        max-width: 30px;
+        width: 50px;
+        padding: 0 0 0 10px ;
     }
 
     thead th:nth-child(2), tbody td:nth-child(2){
-        min-width: 70px;
-        max-width: 70px;
+        width:70px;
     }
     .data-container {
-        height: 73%;
+        height: 82%;
         overflow: auto;
     }
     
     .fields-names-background-bar {
-        display: flex;
         background:$yellow-linear-gradient;
         height: 61px;
         width: 58.7em;
@@ -325,7 +369,7 @@ export default {
     input {
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 80%;
         transform: translate(-50%, -50%);
         width: 18px;
         height: 18px;      
