@@ -37,8 +37,9 @@
         margin: 0 auto;
         background: $negro-clarito;
     }
-    .sidebar { 
-        width:270px;
+    .sidebar {
+        display: flex;
+
     }
     .dashboard {
         flex:500px;

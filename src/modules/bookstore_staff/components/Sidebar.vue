@@ -3,6 +3,11 @@
         <input type="checkbox" id="btn-menu">
         <div class="btn-menu btn-menu--top">
             <label for="btn-menu">
+                <span>activador</span>
+            </label>
+        </div>
+        <div class="Menu">
+            <div class="header">
                 <span class="Titulo">BOOKSTORE</span>
                 <svg width="270" height="114" viewBox="0 0 270 114"  xmlns="http://www.w3.org/2000/svg">
                     <path d="M206 113C242 111 255.5 104 270 99.5V-7.5H0V104C8 99.8333 52 96.5 84.5 102C130.154 109.726 170 115 206 113Z" fill="url(#paint0_linear_91:391)"/>
@@ -13,9 +18,7 @@
                     </linearGradient>
                     </defs>
                 </svg>
-            </label>
-        </div>
-        <div class="Menu">
+            </div>
             <div class="menu__user-information">
                 <div class="menu__photo">
                     <svg width="50" height="50" viewBox="0 0 50 50"  xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +57,6 @@
                                 <path d="M12.823 17.2733H16.9163V18.2066H12.823V17.2733Z" fill="white"/>
                                 <path d="M20.1764 13.3133H16.7297V14.6466H19.5097V20.2266H10.0631V14.6466H14.2631V14.9266C14.2631 15.1034 14.3333 15.273 14.4583 15.398C14.5834 15.5231 14.7529 15.5933 14.9297 15.5933C15.1065 15.5933 15.2761 15.5231 15.4011 15.398C15.5262 15.273 15.5964 15.1034 15.5964 14.9266V12.3333C15.5964 12.1565 15.5262 11.9869 15.4011 11.8619C15.2761 11.7369 15.1065 11.6666 14.9297 11.6666C14.7529 11.6666 14.5834 11.7369 14.4583 11.8619C14.3333 11.9869 14.2631 12.1565 14.2631 12.3333V13.3133H9.3964C9.21959 13.3133 9.05002 13.3835 8.925 13.5086C8.79997 13.6336 8.72974 13.8031 8.72974 13.98V20.8933C8.72974 21.0701 8.79997 21.2397 8.925 21.3647C9.05002 21.4897 9.21959 21.56 9.3964 21.56H20.1764C20.3532 21.56 20.5228 21.4897 20.6478 21.3647C20.7728 21.2397 20.8431 21.0701 20.8431 20.8933V13.98C20.8431 13.8031 20.7728 13.6336 20.6478 13.5086C20.5228 13.3835 20.3532 13.3133 20.1764 13.3133Z" fill="white"/>
                             </svg>
-
                         </div>
                         <span>Account</span>
                     </div> 
@@ -100,7 +102,7 @@
                         <span>Analysis</span>
                     </div>
                 </router-link>
-                <router-link to="" class="option option--logout" @click="setLogOut">
+                <router-link to="" class="option option--logout" @click="setWindowLogOut">
                     <div class="option__content">
                         <div class="option__icon option__icon--n">
                             <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
@@ -111,30 +113,40 @@
                         <span>Log out</span>
                     </div>
                 </router-link>
-            </div>
-                
+            </div>      
         </div>
+        <log-out-window 
+            :isActivate="logOutActivate"
+            @yes="setLogOut"
+            @cancel="setWindowLogOut"
+        ></log-out-window>
     </div>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 export default {
     data() {
         return {
             fullname:"",
             work_area:"",
+            logOutActivate: false,
         }
+    },
+    components: {
+        LogOutWindow: defineAsyncComponent(() => import( /* webpackChunkName: "logOutWindow" */ './LogOutWindow'))
     },
     methods:{
         setLogOut: function(){
             localStorage.clear();
-            alert("Sesión Cerrada");
             this.$router.push({ path: "/user/staff-login/" });
         },
         setDataUser: function(){
             this.work_area= localStorage.getItem("work_area") || "none";
             this.fullname= localStorage.getItem("fullname") || "none";
-            console.log(this.work_area);
+        },
+        setWindowLogOut: function(){
+            this.logOutActivate = !this.logOutActivate;
         }
     },
     mounted: function(){
@@ -145,7 +157,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/ColorPalette.scss";
 
-
 	#btn-menu{
         visibility: visible;
         display: none;
@@ -153,10 +164,31 @@ export default {
         width: 270px;
         height: 120.93px;
         left: 0px;
-        top: -7.5px;
         background: linear-gradient(180deg, #000000 21.97%, #0f0f0f 117.01%);
         z-index: 3;
 	}
+
+    #btn-menu:checked ~ .Menu{
+		opacity: 1;
+		visibility: visible;
+        z-index: 1;
+        transform: translateX(0%); 
+        position: relative;
+         
+	}
+	.Menu{
+        width: 100%;
+		transition: all 300ms ease;
+        position: absolute;
+		// opacity: 0;
+		max-width: 270px;
+		background: $dark-grey;
+		height: 100%;
+		transform: translateX(-100%);
+        display:flex;
+        flex-direction: column;
+	}
+	
     .Titulo {
         position: absolute;
         width: 200px;
@@ -174,36 +206,11 @@ export default {
     svg{
         fill: $white;
     }
-	.Menu{
-        width: 100%;
-		position: absolute;
-		transition: all 500ms ease;
-		opacity: 0;     
-	}
     
-	#btn-menu:checked ~ .Menu{
-		opacity: 1;
-		visibility: visible;
-        z-index: 1;
-	}
-	.Menu{
-		max-width: 270px;
-		background: $dark-grey;
-		height: 100%;
-		transition: all 500ms ease;
-		transform: translateY(-100%);
-        display:flex;
-        flex-direction: column;
-	}
-	#btn-menu:checked ~ .Menu {
-		transform: translateY(0%);
-        z-index: 1;
-             
-	}
     .menu__user-information{
         width: 270px;
         height: 82px;
-        margin-top: 130px ;
+        margin-top: 10px ;
         display: flex;
         align-items: center;
         padding-left: 40px;

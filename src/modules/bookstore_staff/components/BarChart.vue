@@ -42,12 +42,22 @@
                         tickPlacement: 'on',
                         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                         title: {
-                            text: 'Month'
+                            text: 'Month',
+                            style: {
+                                fontSize:  '14px',
+                                fontFamily:  'Mulish',
+                                color:  '#2E2B2C'
+                            },
                         }
                     },
                     yaxis: {
                         title: {
-                            text: 'Sales per month'
+                            text: 'Sales per month',
+                            style: {
+                                fontSize:  '14px',
+                                fontFamily:  'Mulish',
+                                color:  '#2E2B2C'
+                            },
                         }
                     },
                     responsive: [{
@@ -67,8 +77,8 @@
                         },
                     },
                     legend: {
-                        position: 'right',
-                        offsetY: 40
+                        position: 'top',
+                        offsetY: 0,
                     },
                     fill: {
                         opacity: 1

@@ -12,11 +12,12 @@
                     </div>
                     <div class="header__list">
                         <input list="cursos" v-model="yearSelected">
-                        <datalist id="cursos">
+                        <datalist id="cursos" class="datalist">
                             <option class="option" v-for="(year, index) in this.yearsList" :key="index" :value="year" ></option>
                         </datalist>
                     </div>
                 </div>
+                <span class="year-selected">Sales of the year {{year}}</span>
             </div>
             <div class="charts-container">
                 <div class="pie-chart">
@@ -46,9 +47,9 @@
             return {
                 dataYears: {},
                 dataMonth: {},
-                year: "2021",
+                year: "",
                 yearsList:[],
-                yearSelected: null,
+                yearSelected: "",
             }
         },
         components: {
@@ -83,14 +84,19 @@
                 setYears: function(yearsObject){
                     this.yearsList = Object.keys(yearsObject["books"]);
                 },
+                setCurrentYear: function(){
+                    this.year= new Date().getFullYear();
+                    this.yearSelected = new Date().getFullYear();
+                },
         },
         created:function(){
+            this.setCurrentYear();
             this.getDataYears();
             this.getDataMonth();
         },
         watch:{
             yearSelected: function(){
-                if( toString(this.year).length == 18){
+                if( this.yearSelected.toString().length == 4){
                     this.year = this.yearSelected;
                     this.getDataMonth();
                 }
@@ -119,18 +125,18 @@
     align-items: center;
     justify-content: left;
     background: $light-yellow;
-    height: 100px;
+    height: 80px;
     width: 1052px;
     border-radius: 20px 20px 0 0;
+    position: relative;
 }
 .header-content{
-    background: $yellow-linear-gradient;
     display: flex;
     align-items: center;
     margin-left: 20px;
-    padding: 15px;
-    border-radius: 15px;
-    // border: 0.6px solid $dark-grey;
+    border-radius: 8px;
+    outline: 0.6px solid $dark-grey;
+    background: $white;
 }
 .charts-container{
     display: flex;
@@ -140,8 +146,12 @@
     background: $white;
     border-radius: 0 0 20px 20px;
 }
-.header__title {  
-    margin: 0 50px 0 0;
+.header__title {
+    background: $yellow-linear-gradient;
+    padding: 0px;
+    height: 38px;
+    padding-right:10px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
 }
@@ -156,23 +166,32 @@
 }
 
 p{
-    font-size: 1.3rem ;
+    font-size: 1.3rem;
     color: $dark-grey;
 }
-datalist option:hover, datalist option:focus {
-    background: #F44336;
-    background: #9C27B0;
-    background: #E91E63;
-    // colors:['#F44336', '#E91E63', '#9C27B0']
-}
+
 input{
     border-radius: 8px;
     border: none;
     text-align: center;
+    display: flex;
+    height: 38px;
+
+    &:focus {
+        outline: none;
+        text-align: center;
+    }
 }
-input:focus {
-    border: none;
-    text-align: center;
+
+.datalist{
+    border:none;
+    outline: none;
+    &:hover{
+        background: lightskyblue;
+    }
+}
+.option:hover{
+    background: lime;
 }
 .pie-chart{
     margin: 3px;
@@ -183,6 +202,12 @@ input:focus {
 
 .bar-chart{
     margin: 3px;
+}
+
+.year-selected{
+    position: absolute;
+    right: 25%;
+    font-size: 1.3rem;
 }
 
 

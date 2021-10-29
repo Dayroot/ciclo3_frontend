@@ -33,7 +33,13 @@
                     },
                     labels: ['Magazines', 'Books'],
                     title: {
-                        text: "% Sales per Year"
+                        text: "% Sales per Year",
+                        align: 'center',
+                        style: {
+                            fontSize:  '14px',
+                            fontFamily:  'Mulish',
+                            color:  '#2E2B2C'
+                        },
                     },
                     responsive: [{
                         breakpoint: 480,
@@ -75,10 +81,11 @@
 </script>
 
 <style lang="scss" scoped>
-
+@import "@/assets/ColorPalette.scss";
 .chart{
     width: 390px;
     height: 350px;
+    font-family: sans-serif;
 }
 
 </style>
