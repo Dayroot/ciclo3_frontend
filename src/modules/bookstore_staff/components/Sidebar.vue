@@ -37,10 +37,10 @@
                 
                 <div class="name-role-container">
                     <div >
-                        <span class="menu__name">Pepito Perez</span>
+                        <span class="menu__name">{{fullname}}</span>
                     </div>
                     <div>
-                        <span class="menu__role">Administrator</span>
+                        <span class="menu__role">{{work_area}}</span>
                     </div>
                 </div>
             </div>
@@ -119,17 +119,32 @@
 
 <script>
 export default {
+    data() {
+        return {
+            fullname:"",
+            work_area:"",
+        }
+    },
     methods:{
         setLogOut: function(){
             localStorage.clear();
             alert("Sesión Cerrada");
             this.$router.push({ path: "/user/staff-login/" });
+        },
+        setDataUser: function(){
+            this.work_area= localStorage.getItem("work_area") || "none";
+            this.fullname= localStorage.getItem("fullname") || "none";
+            console.log(this.work_area);
         }
+    },
+    mounted: function(){
+        this.setDataUser();
     }
 }
 </script>
 <style lang="scss" scoped>
 @import "@/assets/ColorPalette.scss";
+
 
 	#btn-menu{
         visibility: visible;
@@ -207,6 +222,8 @@ export default {
         width: 34px;
         height: 14px;
         font-size: 12px;
+        font-family: sans-serif;
+        font-weight: 100 !important;
     }
     .menu__options{
         display: flex;

@@ -137,9 +137,11 @@ export default {
                 const backend = this.api['backend'];
                 const update = this.api['update'];
                 let data = this.user;
-                if(updatePassword){
+                if(updatePassword == "yes"){
                      data = { "password": this.user.password}
                 }
+                console.log("datos enviandos");
+                console.log(data);
                 await axios.put( `${backend}/${update}/${id}`, data, {headers: {'Authorization': `Bearer ${token}`}} )
                 .then((result) => {
                     if(updatePassword== "yes"){

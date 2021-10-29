@@ -102,6 +102,8 @@ export default {
                         username: this.user.username,
                         token_access: result.data.access,
                         token_refresh: result.data.refresh,
+                        fullname: result.data.fullname,
+                        work_area: result.data.work_area,
                     }
                     this.$emit('completedStaffLogIn', dataLogIn)
                 })

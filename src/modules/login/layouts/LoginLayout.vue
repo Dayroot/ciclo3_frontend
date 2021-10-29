@@ -27,6 +27,7 @@
                 localStorage.setItem("isAuthStaff", true);
                 localStorage.setItem("username", data.username);
                 localStorage.setItem("work_area", data.work_area);
+                localStorage.setItem("fullname", data.fullname);
                 localStorage.setItem("token_access", data.token_access);
                 localStorage.setItem("token_refresh", data.token_refresh);
                 this.$router.push({ path: "/staff/" });

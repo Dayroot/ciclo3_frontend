@@ -96,9 +96,9 @@ export default {
     
     methods: {
         processLogInUser: function(){
-            axios.post( "https://bookstore-macad-backend.herokuapp.com/staff-login/", this.user )
+            axios.post( "https://bookstore-macad-backend.herokuapp.com/customer-login/", this.user )
                 .then((result) => {
-                    let dataLogIn = {
+                    let dataLogIn = {  
                         username: this.user.username,
                         token_access: result.data.access,
                         token_refresh: result.data.refresh,
