@@ -1,14 +1,13 @@
 <template>
     <div>
-        <p>Books</p>
-        <Product></Product>
-        
+        <product-book></product-book>
+        <!-- <span>Book: # {{$route.params.title}}</span> -->
     </div>
 </template>
 
 <script>
-import Product from '../components/Product.vue'
+import ProductBook from '../components/ProductBook.vue'
 export default {
-    components : { Product }
+    components : { ProductBook }
 }
 </script>Product

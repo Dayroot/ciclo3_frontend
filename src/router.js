@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
+import isAuthenticatedStaff from './guards/staffAccess';
 
 const routes = [
     
@@ -29,9 +30,9 @@ const routes = [
                 component: () => import(/* webpackChunkName: "MagazinesPage" */'./modules/bookstore_ecommerce/pages/MagazinesPage')
             },
             {
-                path: 'offers/',
-                name: 'offers',
-                component: () => import(/* webpackChunkName: "OffersPage" */'./modules/bookstore_ecommerce/pages/OffersPage')
+                path: 'about-us/',
+                name: 'about-us',
+                component: () => import(/* webpackChunkName: "AboutUsPage" */'./modules/bookstore_ecommerce/pages/AboutUsPage')
             },
             {
                 path: 'product/book/',
@@ -74,33 +75,44 @@ const routes = [
     {
         path: '/staff',
         name: 'staff',
+        beforeEnter: [ isAuthenticatedStaff ],
         component:  () => import(/* webpackChunkName: "StaffPage" */'./modules/bookstore_staff/layouts/StaffLayout'),
         children: [
             {
                 path: 'inventory',
                 name: 'inventory',
+                beforeEnter: [ isAuthenticatedStaff ],
                 component:  () => import(/* webpackChunkName: "InventoryPage" */'./modules/bookstore_staff/pages/InventoryPage')
             },
             {
-                path: 'sales',
-                name: 'sales',
-                component:  () => import(/* webpackChunkName: "SalesPage" */'./modules/bookstore_staff/pages/SalesPage')
+                path: 'employees',
+                name: 'employees',
+                beforeEnter: [ isAuthenticatedStaff ],
+                component:  () => import(/* webpackChunkName: "EmployeesPage" */'./modules/bookstore_staff/pages/EmployeesPage')
+            },
+            {
+                path: 'customers',
+                name: 'customers',
+                beforeEnter: [ isAuthenticatedStaff ],
+                component:  () => import(/* webpackChunkName: "CustomersPage" */'./modules/bookstore_staff/pages/CustomersPage')
             },
             {
                 path: 'analysis',
                 name: 'analysis',
+                beforeEnter: [ isAuthenticatedStaff ],
                 component:  () => import(/* webpackChunkName: "AnalysisPage" */'./modules/bookstore_staff/pages/AnalysisPage')
-            },
-            {
-                path: '',
-                redirect: { name: 'inventory' }
             },
             {
                 path: 'account',
                 name: 'staffAccount',
+                beforeEnter: [ isAuthenticatedStaff ],
                 component:  () => import(/* webpackChunkName: "staffAccount" */'./modules/bookstore_staff/pages/AccountStaff')
             },
-
+            {
+                path: '',
+                redirect: { name: 'staffAccount' }
+            },
+        
         ]
     }
     
@@ -111,4 +123,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+
+
 export default router

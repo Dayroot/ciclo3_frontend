@@ -5,7 +5,8 @@
                 <sidebar></sidebar>       
             </div>
             <div class="dashboard">
-                <router-view />
+                <router-view
+                ></router-view>
             </div>
         </div >
     </body>
@@ -15,9 +16,14 @@
     import { defineAsyncComponent } from 'vue'
     export default {
         name: 'staff-layout',
+        data() {
+            return {
+                is_auth_staff: false,
+            }
+        },
         components: {
             Sidebar: defineAsyncComponent(() => import( /* webpackChunkName: "sidebar" */ '../components/Sidebar'))
-        },
+        },   
     }
 </script>
 

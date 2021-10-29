@@ -25,6 +25,14 @@
                     </li>
                 </ul>
             </nav>
+            <router-link to="/user/staff-login/" class="button-staff">
+                <div>         
+                    <svg class="icon-staff" width="19" height="19" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.5 0.000484832L0 1.50048L3.3 6.12198C3.43892 6.3166 3.62236 6.47518 3.83502 6.58451C4.04767 6.69384 4.28339 6.75075 4.5225 6.75049H4.6275C4.82472 6.75033 5.02003 6.78907 5.20226 6.86448C5.3845 6.9399 5.55007 7.05051 5.6895 7.18999L9.702 11.2025L5.7765 15.1835C5.10509 14.9858 4.39686 14.9474 3.708 15.0711C3.01913 15.1949 2.36858 15.4775 1.80795 15.8965C1.24732 16.3154 0.792031 16.8593 0.478205 17.4849C0.164379 18.1105 0.000648302 18.8006 0 19.5005C0.000899195 20.1454 0.140406 20.7826 0.409067 21.3689C0.677729 21.9551 1.06927 22.4768 1.55716 22.8986C2.04505 23.3203 2.61789 23.6323 3.23687 23.8133C3.85586 23.9943 4.50652 24.0402 5.14477 23.9478C5.78303 23.8554 6.39396 23.6269 6.93619 23.2777C7.47842 22.9286 7.93926 22.467 8.28751 21.9242C8.63576 21.3814 8.86326 20.7701 8.95462 20.1317C9.04597 19.4933 8.99904 18.8427 8.817 18.224L12.798 14.2985L14.25 15.7505L13.7925 17.1215C13.7046 17.3857 13.692 17.6693 13.7561 17.9403C13.8202 18.2113 13.9585 18.4591 14.1555 18.656L19.1895 23.69C19.4708 23.9712 19.8523 24.1292 20.25 24.1292C20.6477 24.1292 21.0292 23.9712 21.3105 23.69L23.6895 21.311C23.9707 21.0297 24.1287 20.6482 24.1287 20.2505C24.1287 19.8527 23.9707 19.4713 23.6895 19.19L18.6555 14.156C18.4586 13.959 18.2108 13.8207 17.9398 13.7566C17.6688 13.6925 17.3853 13.7051 17.121 13.793L15.75 14.2505L14.31 12.8105L18.33 8.84598C18.9969 9.024 19.6957 9.04648 20.3727 8.9117C21.0496 8.77692 21.6866 8.48848 22.2344 8.06861C22.7823 7.64874 23.2264 7.10867 23.5325 6.49003C23.8386 5.87139 23.9985 5.19072 24 4.50048C24 4.09698 23.9475 3.70548 23.847 3.33498L20.637 6.54648L18 6.00049L17.454 3.36498L20.6655 0.153485C19.9015 -0.0519233 19.0969 -0.0523067 18.3328 0.152373C17.5686 0.357053 16.8719 0.759563 16.3129 1.31933C15.7539 1.8791 15.3524 2.57633 15.1487 3.34077C14.9451 4.1052 14.9466 4.90981 15.153 5.67348L11.193 9.69049L7.1895 5.68998C6.90818 5.40875 6.75008 5.02728 6.75 4.62948V4.52298C6.75002 4.28412 6.693 4.04871 6.58368 3.83634C6.47437 3.62396 6.31591 3.44076 6.1215 3.30198L1.5 0.000484832ZM15.969 15.9695C16.0387 15.8996 16.1214 15.8442 16.2126 15.8064C16.3037 15.7686 16.4013 15.7491 16.5 15.7491C16.5987 15.7491 16.6963 15.7686 16.7874 15.8064C16.8786 15.8442 16.9613 15.8996 17.031 15.9695L21.531 20.4695C21.6007 20.5392 21.656 20.622 21.6938 20.7131C21.7315 20.8042 21.7509 20.9019 21.7509 21.0005C21.7509 21.0991 21.7315 21.1968 21.6938 21.2879C21.656 21.379 21.6007 21.4618 21.531 21.5315C21.4613 21.6012 21.3785 21.6565 21.2874 21.6943C21.1963 21.732 21.0986 21.7514 21 21.7514C20.9014 21.7514 20.8037 21.732 20.7126 21.6943C20.6215 21.6565 20.5387 21.6012 20.469 21.5315L15.969 17.0315C15.8992 16.9618 15.8437 16.8791 15.8059 16.7879C15.7681 16.6968 15.7487 16.5991 15.7487 16.5005C15.7487 16.4018 15.7681 16.3042 15.8059 16.213C15.8437 16.1219 15.8992 16.0392 15.969 15.9695ZM4.5 16.5005L5.2065 16.8635L6 16.9025L6.4305 17.57L7.098 18.0005L7.137 18.794L7.5 19.5005L7.137 20.207L7.098 21.0005L6.4305 21.431L6 22.0985L5.2065 22.1375L4.5 22.5005L3.7935 22.1375L3 22.0985L2.5695 21.431L1.902 21.0005L1.863 20.207L1.5 19.5005L1.863 18.794L1.902 18.0005L2.5695 17.57L3 16.9025L3.7935 16.8635L4.5 16.5005Z"/>
+                    </svg>
+                </div>
+                <span class="button-staff-label">STAFF</span>
+            </router-link>
         </div>
 
         <div class="header">
@@ -42,10 +50,7 @@
                         <router-link :to="{name:'magazines'}" class="menu__option">MAGAZINES</router-link>
                     </li>
                     <li>
-                        <router-link :to="{name:'inventory'}" class="menu__option">STAFF</router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{name:'product-book'}" class="menu__option">PRODUCT DETAIL</router-link>
+                        <router-link :to="{name:'about-us'}" class="menu__option">ABOUT US</router-link>
                     </li>
                 </ul>      
             </nav>
@@ -116,13 +121,12 @@
     /* Social media bar styles */
 
     .social-media-bar{
-        // background: #e2b043;
         height: 55px;
         display: flex;
-        align-items: center;    
+        align-items: center;
+        position: relative;
     }
     .social-media-bar__label {
-        // background: royalblue;
         color: $grey;
         font-family: 'Mulish', sans-serif;
         font-size: 0.8rem;
@@ -149,23 +153,67 @@
         transform: scale(1.15);
         background: $yellow-radial-gradient-activate;
     }
+    .button-staff{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        margin-right: 50px;
+        padding: 5px;
+        width: 100px;
+        border-radius: 0.1em;
+    }
+    .button-staff:hover{
+        background: $yellow-linear-gradient;
+        .icon-staff{
+            fill: $dark-grey;
+        }
+        .button-staff-label {
+            color: $dark-grey;
+        }
+    }
+    .button-staff:active{
+        background: $yellow-solid-active;
+        .icon-staff{
+            fill: $dark-grey;
+        }
+        .button-staff-label {
+            color: $dark-grey;
+        }
+    }
+    .button-staff-label {
+        color: $grey;
+        font-family: 'Mulish', sans-serif;
+        font-size: 0.8rem;
+    }
+    .icon-staff{
+        margin-right: 5px;
+        fill: $grey;
+        width: 22px;
+    }
+
+
 
     /* logo */
 
     .header__logo {
-        // background: lightcoral; 
         width: 7.5em;
+        position: absolute;
+        left: 0;
     }
 
     /* shopping cart and user icon styles */
 
     .icons-container {
-        // background: chocolate;
         display: flex;
         justify-content: right;
         align-items: center;
         background-color: $light-grey;
         border-radius: 0.1em;
+        position: absolute;
+        right: 0;
+        margin-right: 50px;
     }
 
     .icon {
@@ -196,29 +244,30 @@
         border-radius: 0.1em;
     }
     .icon:active {
-        background-color: $yellow-solid-active;
+        background-color: $yellow-solid-active;;
         border-radius: 0.1em;
     }
+
 
     /*menu styles */
 
     .header {
-        // background: #b4ccf8;
-        height: 90px;
+        height: 120px;
         display: flex;
         align-items: center;
-        margin: 1.8em 0 4em 0;
+        justify-content: center;
+        margin: 0 0 4em 0;
+        position: relative;
     }
     .menu {
-        // background: cadetblue;
         display: flex;
         width: 50vw;
         height: 30px;
         align-items: center;
         justify-content: center;
         margin: 0 20px;
-
     }
+    
     .menu__option {
         position: relative;
         display: block;

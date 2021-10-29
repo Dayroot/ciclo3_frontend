@@ -129,15 +129,17 @@
         align-items: center;
     }
     .dashboard__title{
-        font-family: $second-font-family;
+        font-family: $primary-font-family;
+        text-transform: uppercase;
         color: $white;
         font-size: 2rem;
     }
     .title-container {
-        text-align: center;
+        display: flex;
+        align-items: end;
+        justify-content: center;
         width: 100%;
-        height: 50px;
-        background: blue;
+        height: 80px;
     }
 
     

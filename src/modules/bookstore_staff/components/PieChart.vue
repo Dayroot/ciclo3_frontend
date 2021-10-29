@@ -21,10 +21,15 @@
 
         data: function() {
             return {
-                series: [50,50],  
+                series: [0,0], 
                 chartOptions: {
+                    colors:['#f7b228', '#FF7042'],
                     chart: {
                         type: 'donut',
+                        toolbar: {
+                            show: true
+                        },
+                        
                     },
                     labels: ['Magazines', 'Books'],
                     title: {
@@ -33,14 +38,18 @@
                     responsive: [{
                         breakpoint: 480,
                         options: {
-                            chart: {
-                                width: 350
-                            },
                             legend: {
                                 position: 'bottom',
-                            }
+                                offsetX: -10,
+                                offsetY: 0
+                            },
+                            colors: ["#000", "#00E396"],
                         },
                     }],
+                    legend: {
+                        position: 'bottom',
+                        offsetY: 0
+                    }
                 }
             }
         },
@@ -53,7 +62,7 @@
             },
         },
         watch: {
-            dataYears: function(){
+            year: function(){
                 this.setDataSeries();
             },
         },
@@ -68,7 +77,7 @@
 <style lang="scss" scoped>
 
 .chart{
-    width: 400px;
+    width: 390px;
     height: 350px;
 }
 

@@ -1,33 +1,35 @@
 <template>
     <div class="login-layout">
         <router-view 
-        v-on:completedCustomerLogIn="completedCustomerLogIn"
-        v-on:completedCustumerSignUp="completedCustumerSignUp"
+        @completedCustomerLogIn="completedCustomerLogIn"
+        @completedCustumerSignUp="completedCustumerSignUp"
+        @completedStaffLogIn="completedStaffLogIn"
         />
     </div >
 </template>
 
 <script>
-    import { defineAsyncComponent } from 'vue'
     export default {
         name: 'login-layout',
-        data: function(){
-        },
-        components: {
-        },
-
         methods:{
             completedCustomerLogIn: function(data) {
-                localStorage.setItem("isAuth", true);
+                localStorage.setItem("isAuthCustomer", true);
                 localStorage.setItem("username", data.username);
                 localStorage.setItem("token_access", data.token_access);
                 localStorage.setItem("token_refresh", data.token_refresh);
-                alert("Autenticación Exitosa");
-                this.$router.push({ name: "home" });
+                this.$router.push({ path: "/" });
             },
             completedCustumerSignUp: function(data) {
                 alert("Registro Exitoso");
                 this.completedCustumerLogIn(data);
+            },
+            completedStaffLogIn: function(data) {
+                localStorage.setItem("isAuthStaff", true);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("work_area", data.work_area);
+                localStorage.setItem("token_access", data.token_access);
+                localStorage.setItem("token_refresh", data.token_refresh);
+                this.$router.push({ path: "/staff/" });
             },
         }
 

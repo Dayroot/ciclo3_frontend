@@ -1,6 +1,6 @@
 <template>
     <div class="chart">
-        <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+        <apexchart ref="chart2" type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
     </div >
 </template>
 
@@ -15,18 +15,18 @@
                 required: true, 
             }
         },
-
         data: function() {
             return {
                 series: [{
                     name: 'Magazines',
-                    data: [30, 40, 56, 45, 50, 49, 60, 70, 91, 35, 56, 64]
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
                 },{
                     name: 'Books',
-                    data: [13, 23, 20, 18, 13, 27, 44, 55, 41, 67, 22, 43]
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 }],
                 chartOptions: {
+                    colors:['#f7b228', '#FF7042'],
                     chart: {
                         type: 'bar',
                         height: 350,
@@ -35,7 +35,7 @@
                             show: true
                         },
                         zoom: {
-                            enabled: true
+                            enabled: false
                         }
                     },
                     xaxis: {
@@ -74,6 +74,23 @@
                         opacity: 1
                     },
                 },    
+            }
+        },
+        watch: {
+            dataMonth: function(){
+                let booksData= Object.values(this.dataMonth['books']);
+                let magazinessData= Object.values(this.dataMonth['magazines']);
+                this.$refs.chart2.updateSeries(
+                    [{
+                        name: 'Magazines',
+                        data: booksData
+
+                    },{
+                        name: 'Books',
+                        data: magazinessData
+                    }],
+                );
+            
             }
         },
      
