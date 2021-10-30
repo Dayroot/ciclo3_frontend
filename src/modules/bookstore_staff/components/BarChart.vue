@@ -114,5 +114,14 @@
     width: 650px;
     height: 350px;
 }
-
+@media screen and (max-width:1280px){
+    .chart{
+        width: 520px;
+    }
+}
+@media screen and (max-width:1024px){
+    .chart{
+        width: 420px;
+    }
+}
 </style>

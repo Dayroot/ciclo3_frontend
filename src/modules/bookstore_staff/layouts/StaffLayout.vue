@@ -39,7 +39,7 @@
     }
     .sidebar {
         display: flex;
-
+        
     }
     .dashboard {
         flex:500px;

@@ -1,12 +1,18 @@
 <template>
     <div>
-        <input type="checkbox" id="btn-menu">
-        <div class="btn-menu btn-menu--top">
-            <label for="btn-menu">
-                <span>activador</span>
-            </label>
-        </div>
+        <input type="checkbox" id="btn-trigger" >
+
         <div class="Menu">
+            <div class="trigger-container">
+                <label 
+                for="btn-trigger" 
+                :class="{'trigger':true, 'sidebar-on':sidebarStatus, 'trigger-visible':!buttonTriggerVisible, 'sidebar-off': !sidebarStatus }"
+                @click="setSidebarStatus"
+                @mouseenter="setButtonTriggerVisible"
+                @mouseleave="setButtonTriggerVisible"
+                >
+                </label>
+        </div>
             <div class="header">
                 <span class="Titulo">BOOKSTORE</span>
                 <svg width="270" height="114" viewBox="0 0 270 114"  xmlns="http://www.w3.org/2000/svg">
@@ -131,6 +137,8 @@ export default {
             fullname:"",
             work_area:"",
             logOutActivate: false,
+            sidebarStatus: true,
+            buttonTriggerVisible: true,
         }
     },
     components: {
@@ -147,7 +155,13 @@ export default {
         },
         setWindowLogOut: function(){
             this.logOutActivate = !this.logOutActivate;
-        }
+        },
+        setSidebarStatus: function(){
+            this.sidebarStatus = !this.sidebarStatus;
+        },
+        setButtonTriggerVisible: function(){
+            this.buttonTriggerVisible = !this.buttonTriggerVisible;
+        },
     },
     mounted: function(){
         this.setDataUser();
@@ -156,35 +170,65 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/ColorPalette.scss";
+    
+    #btn-trigger:checked ~ .Menu{
+		opacity: 1;
+		visibility: visible;
+        z-index: 1;
+        transform: translateX(-100%); 
+        position: absolute;     
+	}
 
-	#btn-menu{
+    .trigger-container{
+        position: relative;
+    }
+    .trigger {
+        position: absolute;
+        z-index: 3; 
+        right: -25px;
+        width:50px;
+        height: 100vh;
+        opacity: 0;
+        transition: all 150ms ease-in-out;
+    }
+    .sidebar-on{
+        background-image: url('../../../assets/icons/arrow-left.svg');
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: left;
+    }
+    .sidebar-off{
+        background-image: url('../../../assets/icons/arrow-right.svg');
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(0, 0, 0, 0.25);
+        opacity: 1;
+    }
+    .trigger-visible{
+        opacity: 1;
+    }
+
+	#btn-trigger{
         visibility: visible;
         display: none;
         position: relative;
         width: 270px;
         height: 120.93px;
-        left: 0px;
+        left: 50px;
         background: linear-gradient(180deg, #000000 21.97%, #0f0f0f 117.01%);
         z-index: 3;
 	}
 
-    #btn-menu:checked ~ .Menu{
-		opacity: 1;
-		visibility: visible;
-        z-index: 1;
-        transform: translateX(0%); 
-        position: relative;
-         
-	}
 	.Menu{
         width: 100%;
 		transition: all 300ms ease;
-        position: absolute;
+        position: relative;
 		// opacity: 0;
 		max-width: 270px;
 		background: $dark-grey;
 		height: 100%;
-		transform: translateX(-100%);
+		transform: translateX(0%);
         display:flex;
         flex-direction: column;
 	}
@@ -282,9 +326,5 @@ export default {
         border-left: 5px solid $white;
 		background: linear-gradient(90deg, #FFBF42 0%, rgba(255, 191, 66, 0) 100%);
     }
-    .btn-menu--top {
-        position: absolute;
-        z-index: 3;
-        
-    }
+
 </style>

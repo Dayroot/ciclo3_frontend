@@ -7,16 +7,15 @@
 </template>
 
 <script>
-    import Carousel from "./carousel/Carousel.vue";
-
+    import { defineAsyncComponent } from 'vue'
     export default {
-        components: { Carousel },
+        components: { Carousel: defineAsyncComponent(() => import( /* webpackChunkName: "adCarousel" */ './carousel/Carousel')) 
+        },
         data: () => ({
             slides: [
-                "https://i.imgur.com/7bKYlfS.png",
-                "https://i.imgur.com/mbDRw2m.png",
-                "https://i.imgur.com/YKXb0lC.png",
-                "https://i.imgur.com/MgNdAaI.png"   
+                "https://i.imgur.com/xkqat43.png",
+                "https://i.imgur.com/hcI6O5c.png",
+                "https://i.imgur.com/ZDi19cC.png",   
             ],
         }),
     }

@@ -112,7 +112,7 @@
     }
     .carousel-inner {
         position: relative;
-        width: 900px;
+        width: 1200px;
         height: 300px;
         overflow: hidden;
     }

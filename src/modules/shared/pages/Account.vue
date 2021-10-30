@@ -196,7 +196,6 @@ export default {
         align-items:center;
         justify-content: center;
         height: 100vh;
-        background-image: url("../../../assets/login/fondo.jpg");
     }
     .content-container {
         display: flex;

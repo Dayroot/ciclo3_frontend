@@ -11,7 +11,7 @@
                         <div>
                             <label>{{fieldName[0]}}</label>
                         </div>
-                        <input type="text" v-model="addObjectData[fieldName[1]]" placeholder=""/>
+                        <input :type="fieldName[2]" v-model="addObjectData[fieldName[1]]" placeholder=""/>
                         <span class="outline"></span>
                     </div>
                 </div>
@@ -72,10 +72,12 @@ export default {
         fields(){
             let fields=[];
             let key = null;
+            let type= "";
             this.fieldsName.forEach( fieldName => {
                 fieldName =="id" && this.typeOperation=="add" ? (null):(
                     key = fieldName.replace(" ","_"),
-                    fields.push([fieldName,key]),
+                    type = fieldName.search( new RegExp("date", 'i') ) != -1 ? "date" : "text",
+                    fields.push([fieldName,key,type]),
                     this.addObjectData[key] = null
                 )
                 });
@@ -117,25 +119,26 @@ export default {
         z-index: 3;
         background: rgba($color: #000000, $alpha: 0.5);
     }
+    .window-container{
+        height: 100vh;
+    }
     .form {
+        background: $dark-grey;
         max-height: 643px;
         max-width: 800px;
         width: 100%;
-        padding: 20px;
         border-radius: 20px;
-        background: lightblue;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        top:50%;
-        margin-top: -321.5px;
+        margin: auto 0; 
         box-shadow: 0px 1px 2px 1px rgba($color:#000000, $alpha: 0.2);
         position: absolute;
         z-index: 4;
     }
 
     .fields-container {
-        background: lightgreen;
+        background: $dark-grey;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -145,14 +148,15 @@ export default {
         justify-content: center;
     }
     .form__head {
-        background: rgb(16, 163, 255);
+        background: $yellow-linear-gradient;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 50px;
+        border-radius: 8px 8px 0 0;
     }
     h1 {
-        font-family: $second-font-family;
+        text-transform: uppercase;
         font-size: 1.4rem;
     }
     .form__field {
@@ -161,8 +165,10 @@ export default {
         justify-content: center;
         width: 300px;
         height: 50px;
-        margin: 5px 5px;
-        background: darkgreen;
+        margin-top: 10px;
+        background: $grey;
+        padding: 5px;
+        border-radius: 4px;
     }
     label{
         color: $dark-grey;
@@ -170,27 +176,42 @@ export default {
     }
     input {
         border: none;
-        width: 300px;
         height: 25px;
-        border-radius: 8px;
         padding: 0 8px; 
+        background:none;
+        border-bottom: solid 2px $dark-grey;
+
+        &:focus{
+            border-bottom: solid 2px $yellow-solid;
+        }
     }
     input:focus, textarea:focus {
         outline: none;
     }
     .button-bar {
-        background: darkkhaki;
         display:flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
+        border-radius: 0 0 8px 8px;
     }
     .button {
-        margin:0 20px;
-        width:115px;
-        height: 30px;
-        border-radius: 6px;
+        margin: 0 10px;
         border: none;
+        background: $yellow-linear-gradient;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 30px;
+        border-radius: 4px;
+        transition: all 80ms ease-in-out;
+        &:hover{
+            background: $orange-linear-gradient;
+        }
+        &:active{
+            opacity: 60%;
+        }
     }
     
 </style>

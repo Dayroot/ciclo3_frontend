@@ -86,11 +86,11 @@ export default {
         background: rgba($color: #000000, $alpha: 0.5);
     }
     .window {
-        height: 200px;
+        height: 180px;
         width: 295px;
         padding: 10px;
-        border-radius: 20px;
-        background: lightblue;
+        border-radius: 0.8em;
+        background: $dark-grey;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -103,28 +103,41 @@ export default {
         z-index: 4;
     }
     .content {
-        background: lightgreen;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         justify-content: center;
     }
+    p{
+        color: $white;
+    }
     .button-bar {
-        background: darkkhaki;
         display:flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
     }
     .button {
-        margin:0 20px;
-        width:115px;
-        height: 30px;
-        border-radius: 6px;
+        margin: 0 10px;
         border: none;
+        background: $yellow-linear-gradient;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 30px;
+        border-radius: 4px;
+        transition: all 80ms ease-in-out;
+        &:hover{
+            background: $orange-linear-gradient;
+        }
+        &:active{
+            opacity: 60%;
+        }
     }
     .highlighted-text {
         color:$orange-solid;
     }
+
 </style>

@@ -14,7 +14,7 @@
             <span>Filter</span>
         </button>
         <span class="selected-filter">{{ selectedFilter }}:</span>
-        <input type="text" v-model="search" placeholder="carry out your search" />
+        <input type="text" v-model="search" placeholder="       carry out your search" />
     </div>
 </template>
 <script>
@@ -83,7 +83,6 @@ export default {
         outline: none;
     }
     input::placeholder {
-        text-indent: 30px;
         color: $grey;
         background-image: url('../../../assets/icons/search.svg');
         background-repeat: no-repeat;

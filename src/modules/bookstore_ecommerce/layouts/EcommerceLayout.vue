@@ -1,7 +1,9 @@
 <template>
     <div class="ecommerce-layout">
         <Header/>
-        <router-view />
+        <div class="content">
+            <router-view />
+        </div>
         <Footer/>
         
     </div >
@@ -27,5 +29,7 @@
         width: 70vw;
         max-width: 1200px;
         margin : 0 auto;
+        height: 100%;
     }
+
 </style>

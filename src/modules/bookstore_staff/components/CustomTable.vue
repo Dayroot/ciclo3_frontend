@@ -4,14 +4,14 @@
             :isActivate="formWindowAddActivate"
             :fieldsName="columns"
             @cancel="formWindowStatus"
-            @add="setData"
+            @add="setAdd"
         ></form-window-add>
         <form-window-update
             :isActivate="formWindowUpdateActivate"
             :fieldsName="columns"
             :recordsUpdate="recordsUpdate"
             @cancel="formWindowStatus"
-            @confirmUpdate="confirmUpdate"
+            @confirmUpdate="setUpdate"
         ></form-window-update>
         <confirmation-window
             :isActivate="confirmationWindowActivate"
@@ -25,6 +25,7 @@
                 <search-bar 
                     :filterFields="filterFields"
                     @searching="searchAnswer"
+                    class="search-bar"
                 ></search-bar>
             </div>
             <div class="data-container">
@@ -56,12 +57,12 @@
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square" class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>
                     </button>
                 </div>
-                <div class="toolbar__option" @click="setDelete('confirmation')">
+                <div class="toolbar__option" @click="setDelete('confirm')">
                     <button class="toolbar__icon toolbar__icon--delete">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>
                     </button>
                 </div>
-                <div class="toolbar__option" @click="setUpdate('update')">
+                <div class="toolbar__option" @click="setUpdate('openUpdateForm')">
                     <button class="toolbar__icon toolbar__icon--update">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="edit" class="svg-inline--fa fa-edit fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path  d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"></path></svg>
                     </button>
@@ -92,8 +93,8 @@ export default {
             checkRows:{},
             deleteConfirmation: false,
             recordsNumber: 0,
-            // recordsUpdate:[],
-            emitUpdateDataArray: [],
+            recordsUpdate:[],
+            objectUpdate: {},
         }
     },
     emits: ['add','updateDB','delete','refresh'],
@@ -120,28 +121,6 @@ export default {
                     });
             }
         },
-        setData: function(objectData, operation){
-            this.$emit(operation, this.setDataStructure(this.dataStructure, objectData) );
-            this.formWindowStatus('add');
-        },
-        setDataStructure: function(input, objectData){
-            for( let key of Object.keys(input) ){
-                if( typeof input[key] != "object" ){
-                        let value = objectData[key];
-                        if( value == null) {
-                            delete input[key];
-                        }else if(key == "id"){
-                            input[key] = parseInt(value);
-                        }
-                        else{
-                            input[key] = value;
-                        }
-                }else{
-                    this.setDataStructure(input[key], objectData);
-                }           
-            }
-            return input;
-        },
         activeCheckbox: function(row){
             let flag = true;
             for(let i = 0; i < this.selectedRows.length; i++){
@@ -162,55 +141,73 @@ export default {
                 this.$emit('delete',dataDelete);
                 this.selectedRows = [];
                 this.recordsNumber = 0;
-            }else{
+            }else if (status=="confirm"){
                 this.recordsNumber = dataDelete.length;
                 this.formWindowStatus('confirmation', 'delete');
             }
         },
-        setUpdate: function(status){
+        setAdd: function(objectData, operation){
+            this.$emit(operation, this.setDataStructure(this.dataStructure, objectData) );
+            this.formWindowStatus('add');
+        },
+        setUpdate: function(status, updateObjectData=null){
+
             if(status=="accept"){
-                this.$emit('updateDB', this.emitUpdateDataArray );
+                const dataEmit = this.setDataUpdate(this.objectUpdate, this.recordsUpdate);
+                console.log("datos que quiero enviar");
+                console.log(dataEmit);
+                console.log("datos que quiero enviar");
+                this.$emit('update',  dataEmit);
                 this.selectedRows = [];
                 this.recordsUpdate = [];
-            }else{
+
+            }else if(status=="confirm"){
+                this.recordsNumber = this.recordsUpdate.length;
+                this.objectUpdate = updateObjectData;
+                this.formWindowStatus('update');
+                this.formWindowStatus('confirmation', 'update');
+
+            }else if(status=="openUpdateForm"){
                 this.recordsUpdate = this.selectedRows.length > 0 ? this.selectedRows : this.filteredRows;
-
-                console.log("antes de abrir el form update");
-                console.log(this.recordsUpdate);
-                console.log("antes de abrir el form update");
-
-                this.openFormUpdate('update');
+                this.formWindowStatus('update');
             }
             
         },
-        confirmUpdate: function(updateObjectData){
-            
-            console.log("confirm update antes de hacer operacion");
-            console.log(this.recordsUpdate);
-            console.log(this.selectedRows);
-            console.log("confirm update antes de hacer operacion");
-
-            this.recordsNumber = this.recordsUpdate.length;
-            this.emitUpdateDataArray = this.setDataUpdate(updateObjectData);
-
-            console.log("confirm update antes de abrir");
-            console.log(this.recordsUpdate);
-            console.log("confirm update antes de abrir");
-            
-            this.formWindowStatus('update');
-            this.formWindowStatus('confirmation', 'update');
-        },
-        setDataUpdate: function(updateObjectData){
-            for(let index in this.recordsUpdate){
+        
+        setDataUpdate: function(updateObjectData, objectsData){
+            for(let index in objectsData){
                 for(let key of Object.keys(updateObjectData) ){
                     let value = updateObjectData[key];
                     if( value != null){
-                        this.recordsUpdate[index][key] = value;
-                    } 
+                        objectsData[index][key] = value;
+                    }else{
+                        delete objectsData[index][key]
+                    }
                 }
-                this.recordsUpdate[index] = this.setDataStructure(this.dataStructure, this.recordsUpdate[index]);
+                objectsData[index] = this.setDataStructure(this.dataStructure, objectsData[index]);
             }
-            return this.recordsUpdate
+            
+
+            return objectsData
+        },
+        setDataStructure(input, objectData){
+            let structure = input;
+            for( let key of Object.keys(input) ){
+                if( typeof input[key] != "object" ){
+                        let value = objectData[key];
+                        if( value == null) {
+                            delete input[key];
+                        }else if(key == "id"){
+                            input[key] = parseInt(value);
+                        }
+                        else{
+                            input[key] = value;
+                        }
+                }else{
+                    input[key] = this.setDataStructure(input[key], objectData);
+                }           
+            }
+            return input;
         },
         setExecute: function(operation){
             if (operation == "delete"){
@@ -220,9 +217,6 @@ export default {
             }
             this.formWindowStatus('confirmation');
         },
-        openFormUpdate:function(s){
-            this.formWindowStatus('update')
-        }
     },
     setup() {
 
@@ -230,7 +224,6 @@ export default {
         const formWindowUpdateActivate = ref(false);
         const confirmationWindowActivate = ref(false);
         const typeOperationConfirm = ref("none");
-        const recordsUpdate = ref([]);
 
         const formWindowStatus = (option, operation="none") => { 
               
@@ -253,12 +246,11 @@ export default {
             
         };
 
-        return { confirmationWindowActivate, formWindowUpdateActivate, formWindowAddActivate, formWindowStatus, typeOperationConfirm, recordsUpdate};
+        return { confirmationWindowActivate, formWindowUpdateActivate, formWindowAddActivate, formWindowStatus, typeOperationConfirm};
     },
     watch: {
         rowsData: function(){
-            // clear checkbox
-            // this.selectedRows = [];
+
             if(this.columns.length < this.fields.length){
                 for(let field of this.fields){
                     let index = field.indexOf(".");
@@ -339,8 +331,7 @@ export default {
         color: $medium-grey;
     }
     thead th:nth-child(1), tbody td:nth-child(1){
-        width: 50px;
-        padding: 0 0 0 10px ;
+        width: 40px;
     }
 
     thead th:nth-child(2), tbody td:nth-child(2){
@@ -444,5 +435,32 @@ export default {
         }
     }
     
+    @media screen and (max-width:1280px){
+        .table-container {
+            width: 875.2px;
+            position:relative;
+            left: 50%;
+            transform:translateX(-480px)
+        }
+        .toolbar-container {
+            transform: translateX(55em);
+        }
+    }
+    @media screen and (max-width:1024px){
+        .table-container {
+            margin: 0;
+            width: 800px;
+            position:relative;
+            left: calc(50%);
+            transform:translateX(-410px)
+        }
+        .toolbar-container {
 
+            transform: translateX(54em);
+        }
+        .search-bar{
+            position: absolute;
+            width: 30em;
+        }
+    }
 </style>

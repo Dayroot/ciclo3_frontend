@@ -87,5 +87,14 @@
     height: 350px;
     font-family: sans-serif;
 }
-
+@media screen and (max-width:1280px){
+    .chart{
+        width: 360px;
+    }
+}
+@media screen and (max-width:1024px){
+    .chart{
+        width: 290px;
+    }
+}
 </style>

@@ -21,10 +21,7 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;800&display=swap');
-    /* @import '~@fortawesome/fontawesome-free/css/all.css';
-    @import '~@fortawesome/fontawesome-free/css/brands.css';
-    @import '~@fortawesome/fontawesome-free/css/solid.css';
-    @import '~@fortawesome/fontawesome-free/css/regular.css'; */
+
     
     * {
         box-sizing: border-box;
@@ -44,13 +41,10 @@
         margin:0 auto;
         padding: 0;
         box-sizing: border-box;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
-    /* .container {
-        width: 70vw;
-        max-width: 1200px;
-        margin : 0 auto;
-    } */
+
 
   
 </style>

@@ -26,7 +26,7 @@
         </figure>
         <div class="card__info">
             <div class="card__title">
-                <p>{{title}}</p>
+                <p>{{name}}</p>
             </div>
             <div class="card__type">
                 <span>Type:</span>
@@ -34,8 +34,8 @@
                     <span>{{type}}</span>
                 </div>
             </div>
-            <div class="card__author">
-                <p>Author: <span>{{author}}</span></p>
+            <div class="card__edition">
+                <p>Edition: <span>{{edition}}</span></p>
             </div>
             <div class="card__price">
                 <span>$ {{price}}</span>
@@ -45,7 +45,7 @@
 </template>
 <script>
 export default {
-    props: ["image", "title", "author","type", "price"],
+    props: ["image", "name", "edition","type", "price"],
     data() {
         return {
             activeOptions: false,
@@ -213,7 +213,7 @@ svg {
         font-size: 0.8rem;
     }
 }
-.card__author{
+.card__edition{
     padding: 4px 0;
     overflow:hidden;
     height: 25px;

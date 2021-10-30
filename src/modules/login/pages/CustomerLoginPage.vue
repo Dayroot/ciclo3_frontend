@@ -17,9 +17,9 @@
             <div class="login__right">
                 <div class="Componentes">
                     
-                        <span class="titulo">BOOKSTORE</span>
+                    <span class="titulo">BOOKSTORE</span>
                     <div class="info">
-                        <div class="UserName">
+                        <div class="field">
                             <div class="icon icon--user">
                                 <svg class="icon-img" width="28" height="32" viewBox="0 0 28 32"  xmlns="http://www.w3.org/2000/svg">
                                     <g filter="url(#filter0_d_89:26)">
@@ -43,7 +43,7 @@
                                 <input type="text" v-model="user.username" placeholder="Username" class="input input--user">
                             </div>
                         </div>
-                        <div class="password">
+                        <div class="field">
                             <div class="icon icon--password">
                                 <svg class="icon-img" width="28" height="33" viewBox="0 0 28 33"  xmlns="http://www.w3.org/2000/svg">
                                     <g filter="url(#filter0_d_232:3053)">
@@ -70,7 +70,14 @@
                         <button type="submit" @click="processLogInUser" class="loginb">
                             <span>Log in</span>
                         </button>
-                        
+                        <div class="option option--return" @click="setRedirectHome">
+                            <div>
+                                <svg  class="option__icon" height="14" viewBox="0 0 22 14"  xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5 6.99997C21.5 6.80106 21.421 6.61029 21.2803 6.46964C21.1397 6.32899 20.9489 6.24997 20.75 6.24997H3.0605L7.781 1.53097C7.85073 1.46124 7.90604 1.37846 7.94378 1.28735C7.98152 1.19624 8.00095 1.09859 8.00095 0.999971C8.00095 0.901355 7.98152 0.803705 7.94378 0.712596C7.90604 0.621487 7.85073 0.538703 7.781 0.468971C7.71127 0.399239 7.62848 0.343925 7.53737 0.306186C7.44626 0.268447 7.34861 0.249023 7.25 0.249023C7.15138 0.249023 7.05373 0.268447 6.96262 0.306186C6.87151 0.343925 6.78873 0.399239 6.719 0.468971L0.718998 6.46897C0.649153 6.53864 0.593739 6.6214 0.555929 6.71252C0.518119 6.80364 0.498657 6.90132 0.498657 6.99997C0.498657 7.09862 0.518119 7.1963 0.555929 7.28742C0.593739 7.37854 0.649153 7.4613 0.718998 7.53097L6.719 13.531C6.78873 13.6007 6.87151 13.656 6.96262 13.6938C7.05373 13.7315 7.15138 13.7509 7.25 13.7509C7.34861 13.7509 7.44626 13.7315 7.53737 13.6938C7.62848 13.656 7.71127 13.6007 7.781 13.531C7.85073 13.4612 7.90604 13.3785 7.94378 13.2873C7.98152 13.1962 8.00095 13.0986 8.00095 13C8.00095 12.9014 7.98152 12.8037 7.94378 12.7126C7.90604 12.6215 7.85073 12.5387 7.781 12.469L3.0605 7.74997H20.75C20.9489 7.74997 21.1397 7.67095 21.2803 7.5303C21.421 7.38965 21.5 7.19888 21.5 6.99997Z" fill="white"/>
+                                </svg>
+                            </div>
+                            <span>Return to homepage</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,10 +116,14 @@ export default {
                     if (error.response.status == "401")
                         alert("ERROR 401: Credenciales Incorrectas.");
                 });
+        },
+        setRedirectHome(){
+            this.$router.push({path:"/home"});
         }
     }
 }
 </script>
+
 
 <style lang="scss" scoped>
 @import "@/assets/ColorPalette.scss";
@@ -123,16 +134,21 @@ export default {
         border: none;
     }
     .contenedor{
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
-        background-image: url("../../../assets/login/fondo.jpg");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: #f1eee9;
+        width: 100vh;
+        // background-image: url("../../../assets/login/fondo.jpg");
+        // background-repeat: no-repeat;
+        // background-position: center;
+        // background-color: #f1eee9;
     }
     .login{
+        position: absolute;
+        left: 50%;
+        margin-left: translateX(-50%);
         width: 856px;
         height: 524px;
         filter: drop-shadow(0px 5px 4px rgba(0, 0, 0, 0.3));
@@ -188,7 +204,6 @@ export default {
     .titulo{
         width: 286px;
         height: 60px;
-        font-family: $second-font-family;
         font-size: 44.6512px;
         line-height: 60px;
     }
@@ -200,15 +215,16 @@ export default {
         width: 285.9px;
         height: 400px;
     }
-    .UserName{
+    .field{
         display: flex;
         align-items: center;
         width: 285.9px;
         height: 38px;
         border-radius: 8px;
-        margin: 0px 0px;
+        margin-bottom: 30px;
         outline: 0.6px solid $white;
     }
+
     .icon-img {
         fill: $white;
         width: 24px;
@@ -239,15 +255,6 @@ export default {
         outline:none;
     }
 
-    .password{
-        display: flex;
-        align-items: center;
-        width: 285.9px;
-        height: 38px;
-        border-radius: 8px;
-        margin: 20px 0px;
-        outline: 0.6px solid $white;
-    }
 
     .loginb{
         align-items: center;
@@ -255,14 +262,38 @@ export default {
         height: 37px;
         background: linear-gradient(180deg, #f3af28 31.04%, #A76D1C 100%);
         border-radius: 8px;
-        margin: 50px 0;
+        margin: 20px 0;
         border: none;
         transition: all 120ms ease-in-out;
+        &:hover{
+            opacity: 80%;
+        }
+        &:active{
+            background:$orange-linear-gradient;
+        }
     }
-    .loginb:hover{
-        opacity: 80%;
+    
+    .option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & span {
+            font-size: 0.8rem;
+        }
+
+        &:hover {
+            & span {
+                text-decoration: underline $white;
+                cursor: pointer;
+            }
+        }
     }
-    .loginb:active{
-        background:$orange-linear-gradient;
+
+    .option__icon {
+        margin-right: 10px;
+        width: 15px;
     }
+
+
 </style>

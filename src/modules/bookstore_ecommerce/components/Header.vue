@@ -49,9 +49,9 @@
                     <li>
                         <router-link :to="{name:'magazines'}" class="menu__option">MAGAZINES</router-link>
                     </li>
-                    <li>
+                    <!-- <li>
                         <router-link :to="{name:'about-us'}" class="menu__option">ABOUT US</router-link>
-                    </li>
+                    </li> -->
                 </ul>      
             </nav>
 
@@ -161,7 +161,6 @@
         justify-content: center;
         position: absolute;
         right: 0;
-        margin-right: 50px;
         padding: 5px;
         width: 100px;
         border-radius: 0.1em;
@@ -196,7 +195,6 @@
     }
 
 
-
     /* logo */
 
     .header__logo {
@@ -215,7 +213,6 @@
         border-radius: 0.1em;
         position: absolute;
         right: 0;
-        margin-right: 50px;
     }
 
     .icon {
@@ -258,8 +255,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 0 4em 0;
+        margin: 1em 0 4em 0;
         position: relative;
+
     }
     .menu {
         display: flex;

@@ -1,6 +1,7 @@
 <template>
     <div class="detail-container">
         <p>{{description}}</p>
+        <!-- <span>Book: # {{$route.params.title}}</span> -->
     </div>
 </template>
 

@@ -11,7 +11,7 @@
             :dataStructure="dataStructure"
             @refresh="refreshTable"
             @add="AddData"
-            @updateDB="UpdateData"
+            @update="UpdateData"
             @delete="DeleteData"
         ></custom-table>  
     </div >
@@ -63,13 +63,10 @@
                     })
                 }catch(error) {
                     if (error.response.status == "401")
-                    alert("ERROR 401: not found.");
+                    console.log("ERROR 401: not found.");
                 };          
             },
             async AddData(addObjectData) {
-                console.log("lllllllllllllllll");
-                console.log(addObjectData);
-                console.log("lllllllllllllll");
                 try {
                     await axios.post( this.api, [addObjectData] )
                     .then((result) => {
@@ -83,14 +80,11 @@
         
             },
             async UpdateData(updateObjectData) {
-                console.log("fffffffffffffffffff");
-                console.log(updateObjectData);
-                console.log("fffffffffffffffffff");
                 try {
                     await axios.put( this.api, updateObjectData )
                     .then((result) => {
                         alert(result.data['message']);
-                        // this.getData();
+                        this.getData();
                     });
        
                 }catch(error) {
@@ -141,6 +135,6 @@
         width: 100%;
         height: 80px;
     }
-
+    
     
 </style>
