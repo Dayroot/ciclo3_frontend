@@ -210,28 +210,30 @@ input{
     font-size: 1.3rem;
 }
 
-@media screen and (max-width:1280px){
-    .header {
-        height: 80px;
-        width: 980px;
 
-    }
-}
-@media screen and (max-width:1024px){
-    .header {
-        height: 80px;
-        width: 730px;
 
-    }
-    .pie-chart{
-        margin: 3px;
-        width: 290px;
+// @media screen and (max-width:1280px){
+//     .header {
+//         height: 80px;
+//         width: 980px;
 
-    }
-    .year-selected{
-        right: 6%;
-    }   
+//     }
+// }
+// @media screen and (max-width:1024px){
+//     .header {
+//         height: 80px;
+//         width: 730px;
 
-}
+//     }
+//     .pie-chart{
+//         margin: 3px;
+//         width: 290px;
+
+//     }
+//     .year-selected{
+//         right: 6%;
+//     }   
+
+// }
 
 </style>

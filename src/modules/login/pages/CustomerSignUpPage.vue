@@ -114,16 +114,18 @@ export default {
         border: none;
     }
     .contenedor{
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
+        width: 100vh;
         background-image: url("../../../assets/login/fondo.jpg");
     }
     .login{
-        display: flex;
-        justify-content:center;
-        align-items: center;
+         position: absolute;
+        left: 50%;
+        margin-left: translateX(-50%);
         width: 856px;
         height: 524px;
         filter: drop-shadow(0px 5px 4px rgba(0, 0, 0, 0.3));
@@ -131,27 +133,28 @@ export default {
         border-radius: 20px;
         overflow: hidden;
         background: #141414;
-        box-shadow: 0 0 3px 3px rgba(#000, 0.2);
+        box-shadow: 0 0 2px 2px rgba(#000, 0.1);
         display: flex;
     }
-    .login__left{
-        
-    }
+
 
     .login__right{
         display: flex;
         justify-content:center;
         align-items: center;
         background: #141414;
+        position:relative;
     }
     .Componentes{
         display: flex;
         justify-content:center;
         align-items: center;
         flex-direction: column;
-        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(50%);
         width: 420px;
-        height: 400px;
+        height: 450px;
     }
     span{
         color:$white;

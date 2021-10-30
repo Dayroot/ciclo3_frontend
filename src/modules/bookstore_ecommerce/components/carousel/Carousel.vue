@@ -109,6 +109,7 @@
     .carousel {
         display: flex;
         justify-content: center;
+        max-width: 1200px;
     }
     .carousel-inner {
         position: relative;

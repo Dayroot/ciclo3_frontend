@@ -70,7 +70,7 @@
                 try {
                     await axios.post( this.api, [addObjectData] )
                     .then((result) => {
-                        alert(result.data['message']);
+                        // alert(result.data['message']);
                         this.getData();
                     });
        
@@ -83,7 +83,7 @@
                 try {
                     await axios.put( this.api, updateObjectData )
                     .then((result) => {
-                        alert(result.data['message']);
+                        // alert(result.data['message']);
                         this.getData();
                     });
        
@@ -95,7 +95,7 @@
                 try {
                     await axios.delete( this.api,{ data: DeleteObjects} )
                     .then((result) => {
-                        alert(result.data['message']);
+                        // alert(result.data['message']);
                         this.getData();
                     });
        
