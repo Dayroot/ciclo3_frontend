@@ -204,7 +204,7 @@ export default {
                             input[key] = value;
                         }
                 }else{
-                    input[key] = this.setDataStructure(input[key], objectData);
+                    this.setDataStructure(input[key], objectData);
                 }           
             }
             return input;
