@@ -267,11 +267,9 @@ export default {
         border: none;
         transition: all 120ms ease-in-out;
         &:hover{
-            opacity: 80%;
-        }
-        &:active{
             background:$orange-linear-gradient;
         }
+
     }
 
     .option {

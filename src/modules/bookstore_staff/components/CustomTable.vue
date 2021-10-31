@@ -435,32 +435,32 @@ export default {
         }
     }
     
-    // @media screen and (max-width:1280px){
-    //     .table-container {
-    //         width: 875.2px;
-    //         position:relative;
-    //         left: 50%;
-    //         transform:translateX(-480px)
-    //     }
-    //     .toolbar-container {
-    //         transform: translateX(55em);
-    //     }
-    // }
-    // @media screen and (max-width:1024px){
-    //     .table-container {
-    //         margin: 0;
-    //         width: 800px;
-    //         position:relative;
-    //         left: calc(50%);
-    //         transform:translateX(-410px)
-    //     }
-    //     .toolbar-container {
+    @media screen and (max-width:1280px){
+        .table-container {
+            width: 875.2px;
+            position:relative;
+            left: 50%;
+            transform:translateX(-480px)
+        }
+        .toolbar-container {
+            transform: translateX(55em);
+        }
+    }
+    @media screen and (max-width:1024px){
+        .table-container {
+            margin: 0;
+            width: 800px;
+            position:relative;
+            left: calc(50%);
+            transform:translateX(-410px)
+        }
+        .toolbar-container {
 
-    //         transform: translateX(54em);
-    //     }
-    //     .search-bar{
-    //         position: absolute;
-    //         width: 30em;
-    //     }
-    // }
+            transform: translateX(54em);
+        }
+        .search-bar{
+            position: absolute;
+            width: 30em;
+        }
+    }
 </style>

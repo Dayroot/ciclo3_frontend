@@ -212,28 +212,28 @@ input{
 
 
 
-// @media screen and (max-width:1280px){
-//     .header {
-//         height: 80px;
-//         width: 980px;
+@media screen and (max-width:1280px){
+    .header {
+        height: 80px;
+        width: 980px;
 
-//     }
-// }
-// @media screen and (max-width:1024px){
-//     .header {
-//         height: 80px;
-//         width: 730px;
+    }
+}
+@media screen and (max-width:1024px){
+    .header {
+        height: 80px;
+        width: 730px;
 
-//     }
-//     .pie-chart{
-//         margin: 3px;
-//         width: 290px;
+    }
+    .pie-chart{
+        margin: 3px;
+        width: 290px;
 
-//     }
-//     .year-selected{
-//         right: 6%;
-//     }   
+    }
+    .year-selected{
+        right: 6%;
+    }   
 
-// }
+}
 
 </style>

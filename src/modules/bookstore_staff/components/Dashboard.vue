@@ -121,6 +121,7 @@
         width: 100%;
         height: 100%;
         align-items: center;
+        margin: 0 auto;
     }
     .dashboard__title{
         font-family: $primary-font-family;
