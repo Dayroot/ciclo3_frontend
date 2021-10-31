@@ -267,8 +267,12 @@ export default {
         justify-content:center;
         align-items: center;
     }
-    .form-desactive{
-        opacity: 40%;
+    .form-desactive label, .form-desactive input{
+        color: $grey;
+    }
+
+    .form-desactive .form__column {
+        border-bottom: 1px solid $grey !important;
     }
 
     .form__row{
